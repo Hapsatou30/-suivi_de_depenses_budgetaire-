@@ -46,3 +46,25 @@ const UserInfos = JSON.parse(sessionStorage.getItem('user-infos'));
         }
     });
 
+// Ouvrir le modal lorsque le bouton est cliqué
+document.getElementById('liste').addEventListener('click', () => {
+    $('#calendarModal').modal('show');
+});
+
+// Initialiser Flatpickr lorsque le modal est complètement affiché
+$('#calendarModal').on('shown.bs.modal', () => {
+    flatpickr("#calendarContainer", {
+        inline: true, // Affiche le calendrier en ligne
+        dateFormat: "Y-m-d",
+        minDate: "today"
+    });
+});
+
+// Nettoyer le calendrier lorsque le modal est fermé
+$('#calendarModal').on('hidden.bs.modal', () => {
+    // Supprimer le calendrier et ses données lorsque le modal est fermé
+    const calendar = document.querySelector('#calendarContainer .flatpickr-calendar');
+    if (calendar) {
+        calendar.remove();
+    }
+});
