@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-app.js";
-import { getDatabase, ref, set, onValue } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-database.js";
+import { getDatabase, ref, set, onValue, remove, update } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-database.js";
 import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-auth.js";
 import { format, parseISO, differenceInCalendarDays } from 'https://cdn.jsdelivr.net/npm/date-fns@2.23.0/esm/index.js';
 
@@ -46,7 +46,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     }).then(() => {
                         alert('Produit ajouté avec succès !');
                         document.getElementById('productForm').reset();
+                        reset();
                         fetchProducts(userId, selectedDate);
+                        
                     }).catch((error) => {
                         console.error('Erreur lors de l\'ajout du produit : ', error);
                     });
@@ -111,6 +113,17 @@ const validationForm = () => {
     return isValid;
 }
 
+
+// Fonction pour réinitialiser les champs du formulaire
+const reset = () => {
+  
+    // Réinitialiser les classes de succès/erreur
+    nom.parentElement.classList.remove('success', 'error');
+    prix.parentElement.classList.remove('success', 'error');
+    quantite.parentElement.classList.remove('success', 'error');
+    
+  };
+
 // Fonction pour afficher un message d'erreur
 const setError = (element, message) => {
     const inputControl = element.parentElement;
@@ -130,7 +143,7 @@ const setError = (element, message) => {
     inputControl.classList.add('success');
     inputControl.classList.remove('error');
   }
-function fetchProducts(userId, date) {
+  function fetchProducts(userId, date) {
     const productsRef = ref(db, `products/${userId}/${date}`);
     onValue(productsRef, (snapshot) => {
         const productsTableBody = document.getElementById('productsTableBody');
@@ -143,12 +156,36 @@ function fetchProducts(userId, date) {
                 <td>${product.name}</td>
                 <td>${product.price}</td>
                 <td>${product.quantity}</td>
+                <td>
+                    <i class="material-icons" style="cursor: pointer;" onclick="checkProduct('${childSnapshot.key}')">check</i>
+                    <i class="material-icons" style="cursor: pointer;" onclick="editProduct('${childSnapshot.key}')">edit</i>
+                    <i class="material-icons" style="cursor: pointer;" onclick="deleteProduct('${userId}', '${date}', '${childSnapshot.key}')">delete</i>
+                </td>
             `;
             productsTableBody.appendChild(row);
         });
     });
 }
 
+function deleteProduct(userId, date, productId) {
+    // Afficher une boîte de confirmation avant de supprimer
+    if (confirm('Êtes-vous sûr de vouloir supprimer ce produit ?')) {
+        const productRef = ref(db, `products/${userId}/${date}/${productId}`);
+        
+        // Supprimer le produit de Firebase
+        remove(productRef)
+            .then(() => {
+                console.log('Produit supprimé avec succès.');
+                // Rafraîchir la liste des produits après la suppression
+                fetchProducts(userId, date);
+            })
+            .catch((error) => {
+                console.error('Erreur lors de la suppression du produit : ', error.message);
+            });
+    }
+}
+
+window.deleteProduct = deleteProduct;
 function formatDate(dateStr) {
     const date = parseISO(dateStr);
     const today = new Date();
