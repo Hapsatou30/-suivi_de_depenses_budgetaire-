@@ -21,42 +21,98 @@ const dbref = ref(db); // Obtient une référence à la racine de la base de don
 
 // Récupération des éléments du formulaire
 const form = document.getElementById('registrationForm');
-const nom = document.getElementById('nom'); 
-const prenom = document.getElementById('prenom'); 
 const email = document.getElementById('email'); 
 const mot_de_passe = document.getElementById('mot_de_passe'); 
-const MsgHead = document.getElementById('msg');
-const GreetHead = document.getElementById("greet"); 
 const deconnexion = document.getElementById('deconnexion'); 
 
+// Fonction pour valider l'email
+const isValidEmail = email => {
+    // Expression régulière pour valider l'email
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  
+    return re.test(String(email).toLowerCase());
+  };
+  
+  const validationForm = () =>{
+    let isValid = true;
+  
+    //validation du email
+    const valeurEmail = email.value.trim();
+    if (valeurEmail ===''){
+      setError(email, "l'email est obligatoire");
+      isValid = false
+    }else if(!isValidEmail(valeurEmail)){
+      setError(email, "l'email doit être vallide");
+      isValid = false;
+    } else {
+      setSuccess(email);
+    }
+  
+    //validation du mot de passe 
+    const valeurMotDePasse = mot_de_passe.value.trim();
+    if (valeurMotDePasse === '')
+    {
+      setError(mot_de_passe, ' le mot de passe est obligatoire');
+      isValid= false;
+    } else if(valeurMotDePasse.length < 8){
+      setError(mot_de_passe, 'le mot de passe doit contenir au moins 8 caractères');
+    }else{
+      setSuccess(mot_de_passe);
+    }
+  
+    return isValid;
+  }
+form.addEventListener('submit', e => {
+    e.preventDefault(); 
+  
+    // Validation du formulaire
+  if (!validationForm()) {
+    return;
+  }
 
-// Fonction pour connecter un utilisateur
-let SignInUser = e => {
-  e.preventDefault(); 
-
-  // Connecte un utilisateur avec l'email et le mot de passe fournis
-  signInWithEmailAndPassword(auth, email.value, mot_de_passe.value)
-    .then((credentials) => {
-      // Récupère les informations de l'utilisateur à partir de la base de données
-      get(child(dbref, 'UserAuthList/' + credentials.user.uid)).then((snapshot) => {
-        if (snapshot.exists) {
-          // Stocke les informations de l'utilisateur dans la session du navigateur
-          sessionStorage.setItem('user-infos', JSON.stringify({
-            Nom: snapshot.val().Nom,
-            Prenom: snapshot.val().Prenom
-          }))
-          sessionStorage.setItem('user-creds', JSON.stringify(credentials.user));
-          window.location.href = 'accueil.html';
-        }
+    // Connecte un utilisateur avec l'email et le mot de passe fournis
+    signInWithEmailAndPassword(auth, email.value, mot_de_passe.value)
+      .then((credentials) => {
+        // Récupère les informations de l'utilisateur à partir de la base de données
+        get(child(dbref, 'UserAuthList/' + credentials.user.uid)).then((snapshot) => {
+          if (snapshot.exists) {
+            // Stocke les informations de l'utilisateur dans la session du navigateur
+            sessionStorage.setItem('user-infos', JSON.stringify({
+              Nom: snapshot.val().Nom,
+              Prenom: snapshot.val().Prenom
+            }))
+            sessionStorage.setItem('user-creds', JSON.stringify(credentials.user));
+            window.location.href = 'accueil.html';
+          }
+        })
       })
-    })
-    .catch((error) => {
-      alert(error.message);
-      console.log(error.code);
-      console.log(error.message); 
-    })
-}
-form.addEventListener('submit', SignInUser); 
+      .catch((error) => {
+        alert(error.message);
+        console.log(error.code);
+        console.log(error.message); 
+      })
+  }); 
+
+  // Fonction pour afficher un message d'erreur
+const setError = (element, message) => {
+    const inputControl = element.parentElement;
+    const errorDisplay = inputControl.querySelector('.error');
+  
+    errorDisplay.innerText = message;
+    inputControl.classList.add('error');
+    inputControl.classList.remove('success');
+  }
+  
+  // Fonction pour afficher un message de succès
+  const setSuccess = (element, message) => {
+    const inputControl = element.parentElement;
+    const errorDisplay = inputControl.querySelector('.error');
+  
+    errorDisplay.innerText = '';
+    inputControl.classList.add('success');
+    inputControl.classList.remove('error');
+  }
+  
 
 // Récupère les informations de l'utilisateur depuis la session
 let UserCreds = JSON.parse(sessionStorage.getItem('user-creds'));

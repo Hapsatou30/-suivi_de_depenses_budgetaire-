@@ -29,6 +29,7 @@ const msg = document.getElementById('msg');
 
 // Expressions régulières pour vérifier l'absence de chiffres
 const regexNoDigits = /^[^\d]*$/; 
+
 // Fonction pour valider l'email
 const isValidEmail = email => {
   // Expression régulière pour valider l'email
@@ -40,58 +41,58 @@ const isValidEmail = email => {
 const validationForm = () =>{
   let isValid = true;
 
-  //validation du nom
+  // Validation du nom
   const valeurNom = nom.value.trim();
-  if(valeurNom ===''){
+  if(valeurNom === ''){
     setError(nom, 'Le nom est obligatoire');
     isValid = false;
-  }else if (!regexNoDigits.test(valeurNom)){
-    setError(nom, 'le nom ne doit pas contenir de chiffres');
-  }else {
+  } else if (!regexNoDigits.test(valeurNom)){
+    setError(nom, 'Le nom ne doit pas contenir de chiffres');
+    isValid = false;
+  } else {
     setSuccess(nom);
   }
 
-  //validation du prenom
+  // Validation du prénom
   const valeurPrenom = prenom.value.trim();
-  if(valeurPrenom ===''){
+  if(valeurPrenom === ''){
     setError(prenom, 'Le prénom est obligatoire');
     isValid = false;
-  }else if (!regexNoDigits.test(valeurPrenom)){
-    setError(prenom, 'le prénom ne doit pas contenir de chiffres');
-  }else {
+  } else if (!regexNoDigits.test(valeurPrenom)){
+    setError(prenom, 'Le prénom ne doit pas contenir de chiffres');
+    isValid = false;
+  } else {
     setSuccess(prenom);
   }
 
-  //validation du email
+  // Validation de l'email
   const valeurEmail = email.value.trim();
-  if (valeurEmail ===''){
-    setError(email, "l'email est obligatoire");
-    isValid = false
-  }else if(!isValidEmail(valeurEmail)){
-    setError(email, "l'email doit être vallide");
+  if (valeurEmail === ''){
+    setError(email, "L'email est obligatoire");
+    isValid = false;
+  } else if(!isValidEmail(valeurEmail)){
+    setError(email, "L'email doit être valide");
     isValid = false;
   } else {
     setSuccess(email);
   }
 
-  //validation du mot de passe 
+  // Validation du mot de passe
   const valeurMotDePasse = mot_de_passe.value.trim();
-  if (valeurMotDePasse === '')
-  {
-    setError(mot_de_passe, ' le mot de passe est obligatoire');
+  if (valeurMotDePasse === ''){
+    setError(mot_de_passe, 'Le mot de passe est obligatoire');
     isValid= false;
   } else if(valeurMotDePasse.length < 8){
-    setError(mot_de_passe, 'le mot de passe doit contenir au moins 8 caractères');
-  }else{
+    setError(mot_de_passe, 'Le mot de passe doit contenir au moins 8 caractères');
+    isValid = false;
+  } else {
     setSuccess(mot_de_passe);
   }
 
   return isValid;
 }
 
-
-
-form.addEventListener('submit',e => {
+form.addEventListener('submit', e => {
   e.preventDefault(); 
 
   // Validation du formulaire
@@ -109,16 +110,19 @@ form.addEventListener('submit',e => {
       })
       msg.innerHTML = "<div class='alert alert-success'>Utilisateur enregistré avec succès!</div>";
       reset();
+
+      // Redirection vers la page de connexion après l'inscription réussie
+      window.location.href = 'connexion.html';
     })
     .catch((error) => {
       msg.innerHTML = `<div class='alert alert-danger'>${error.message}</div>`;
       console.log(error.code); // Affiche le code de l'erreur dans la console
       console.log(error.message); // Affiche le message de l'erreur dans la console
-    })
-} ); 
+    });
+}); 
 
-//fonction pour afficher un message d'erreur 
-const setError = (element, message)  => {
+// Fonction pour afficher un message d'erreur
+const setError = (element, message) => {
   const inputControl = element.parentElement;
   const errorDisplay = inputControl.querySelector('.error');
 
@@ -127,8 +131,8 @@ const setError = (element, message)  => {
   inputControl.classList.remove('success');
 }
 
-//fonction pour afficher un message de succès
-const setSuccess = (element, message)  => {
+// Fonction pour afficher un message de succès
+const setSuccess = (element, message) => {
   const inputControl = element.parentElement;
   const errorDisplay = inputControl.querySelector('.error');
 
@@ -149,5 +153,4 @@ const reset = () => {
   nom.parentElement.classList.remove('success', 'error');
   email.parentElement.classList.remove('success', 'error');
   mot_de_passe.parentElement.classList.remove('success', 'error');
- 
-  };
+};
