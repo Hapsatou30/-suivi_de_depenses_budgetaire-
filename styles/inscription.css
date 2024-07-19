@@ -1,0 +1,11 @@
+.form-group.success input{
+    border-color: green;
+}
+.form-group.error input{
+    border-color: #ce0033;
+}
+.form-group .error{
+    color: #ce0033;
+    font-size: 10px;
+    height: 13px;
+}
