@@ -6,6 +6,25 @@
     <title>Document</title>
 </head>
 <body>
-    
+    <h1>produit</h1>
+    <div class="container">
+        <h2>Ajouter un Produit</h2>
+        <form id="productForm">
+            <div class="form-group">
+                <label for="productName">Nom du produit</label>
+                <input type="text" class="form-control" id="productName" name="productName" >
+            </div>
+            <div class="form-group">
+                <label for="productPrice">Prix</label>
+                <input type="number" class="form-control" id="productPrice" name="productPrice"  >
+            </div>
+            <div class="form-group">
+                <label for="productQuantity">Quantité</label>
+                <input type="number" class="form-control" id="productQuantity" name="productQuantity" >
+            </div>
+            <button type="submit" class="btn btn-primary">Ajouter le produit</button>
+        </form>
+    </div>
+    <script type="module" src="/js/produit.js"></script>
 </body>
 </html>
