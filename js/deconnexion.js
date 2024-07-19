@@ -1,6 +1,6 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-app.js";
 import { getDatabase, ref, get, child } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-database.js";
-import { getAuth,  signOut } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-auth.js";
+import { getAuth,  signOut,onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-auth.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyA0XjxPY09jH-LPQu4SWtFmZZpFgbFvp4M",
@@ -46,3 +46,31 @@ const UserInfos = JSON.parse(sessionStorage.getItem('user-infos'));
         }
     });
 
+
+// Ouvrir le modal lorsque le bouton est cliqué
+document.getElementById('liste').addEventListener('click', () => {
+    $('#calendarModal').modal('show');
+});
+
+// Initialiser Flatpickr lorsque le modal est complètement affiché
+$('#calendarModal').on('shown.bs.modal', () => {
+    flatpickr("#calendarContainer", {
+        inline: true, // Affiche le calendrier en ligne
+        dateFormat: "Y-m-d",
+        minDate: "today",
+        onChange: (selectedDates, dateStr, instance) => {
+            // Sauvegarder la date sélectionnée dans une variable globale ou locale
+            window.selectedDate = dateStr;
+        }
+    });
+});
+
+// Gérer le clic sur le bouton Confirmer
+document.getElementById('confirmButton').addEventListener('click', () => {
+    if (window.selectedDate) {
+        // Rediriger vers la page d'ajout de produit avec la date sélectionnée en paramètre
+        window.location.href = `produits.html?date=${encodeURIComponent(window.selectedDate)}`;
+    } else {
+        alert('Veuillez sélectionner une date.');
+    }
+});

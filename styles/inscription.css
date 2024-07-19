@@ -9,3 +9,14 @@
     font-size: 10px;
     height: 13px;
 }
+/* Exemple avec un sélecteur plus spécifique */
+table tr.product-achete {
+    background-color: #d4edda;
+    text-decoration: line-through;
+}
+
+table tr.product-no-achete {
+    background-color: #f8d7da;
+}
+
+
