@@ -27,18 +27,34 @@
                 <nav class="nav flex-column text-center">
                     <a href="accueil.html" class="nav-link">Accueil</a>
                     <a href="ajouter_produit.html" class="nav-link">Ajouter un produit</a>
-                    <button class="btn btn-deconnexion mt-2">Déconnexion</button>
+                    <button class="btn btn-deconnexion mt-2" id="deconnexion">Déconnexion</button>
                 </nav>
             </div>
         </div>
     </header>
+    <section class="banner">
+        <section class="banner-content">
+            <h1>Bienvenue sur ShopSmart</h1>
+            <p>Gérez  vos dépenses de manière efficace</p>
+        </section>        
+    </section>
+    
     <!-- <h1 id="msgHead">HELLO</h1> -->
-    <h5 id="greetHead"></h5>
+    <h3 id="greetHead" class="text-center mt-5"></h3>
+    <div class="container mt-5">
+        <h4 class="mb-2"> Voici la liste de vos courses du jour</h4>
+        <div class="row" id="productsContainer"></div>
+    </div>
 
-    <button type="button" id="liste" class="btn btn-primary btn-block">Ajouter une liste</button>
-    <button type="button" id="deconnexion" class="btn btn-primary btn-block">Déconnexion</button>
+    <div class="container mt-5">
+            <div class="col-md-6">
+                        <input type="text" class="form-control" id="date" placeholder="Choisissez une date">
+                    </div>
+            </div>
+        
 
     <div id="datesContainer" class="container mt-4"></div>
+    <button type="button" id="liste" class="btn btn-primary btn-block">Ajouter une liste</button>
 
  <!-- Modal -->
 <div class="modal fade" id="calendarModal" tabindex="-1" role="dialog" aria-labelledby="calendarModalLabel" aria-hidden="true">
@@ -97,6 +113,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script> <!-- Flatpickr JS -->
     <script type="module" src="/js/deconnexion.js"></script>
+    <script type="module" src="/js/produit.js"></script>
 
 </body>
 </html>

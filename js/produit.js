@@ -320,6 +320,7 @@ function checkProduct(productId) {
     });
 }
 window.checkProduct = checkProduct;
+
 function formatDate(dateStr) {
     const date = parseISO(dateStr);
     const today = new Date();

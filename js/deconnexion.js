@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-app.js";
-import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-database.js";
+import { getDatabase, ref, onValue, query, orderByChild, equalTo, update } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-database.js";
 import { getAuth, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-auth.js";
 import { format, parseISO } from 'https://cdn.jsdelivr.net/npm/date-fns@2.23.0/esm/index.js';
 
@@ -45,7 +45,7 @@ const CheckCred = () => {
         window.location.href = 'connexion.html'; 
     } else {
         // document.getElementById('msgHead').innerText = `Utilisateur avec le mail "${UserCreds.email}" est connecté`; 
-        document.getElementById('greetHead').innerText = `Bienvenue ${UserInfos.Prenom} ${UserInfos.Nom}`; 
+        document.getElementById('greetHead').innerText = `Bonjour ${UserInfos.Prenom} `; 
     }
 }
 
@@ -55,6 +55,191 @@ window.addEventListener('load', () => {
         deconnexion.addEventListener('click', Deconnexion); 
     }
 });
+
+
+// document.addEventListener('DOMContentLoaded', function() {
+//     flatpickr("#date", {
+//         dateFormat: "Y-m-d",
+//         minDate: "today"
+//     });
+// });
+// function fetchDatesAndTotals(userId) {
+//     const productsRef = ref(db, `products/${userId}`);
+//     onValue(productsRef, (snapshot) => {
+//         const datesMap = {};
+
+//         snapshot.forEach((dateSnapshot) => {
+//             dateSnapshot.forEach((productSnapshot) => {
+//                 const product = productSnapshot.val();
+//                 const date = dateSnapshot.key;
+//                 const price = parseFloat(product.price) * parseInt(product.quantity, 10);
+
+//                 if (!datesMap[date]) {
+//                     datesMap[date] = 0;
+//                 }
+//                 datesMap[date] += price;
+//             });
+//         });
+
+//         displayDateCards(datesMap);
+//     });
+// }
+
+// function displayDateCards(datesMap) {
+//     const datesContainer = document.getElementById('datesContainer');
+//     datesContainer.innerHTML = '';
+
+//     for (const [date, totalPrice] of Object.entries(datesMap)) {
+//         const card = document.createElement('div');
+//         card.className = 'card mb-3';
+//         card.innerHTML = `
+//             <div class="card-body">
+//                 <h5 class="card-title">${formatDate(date)}</h5>
+//                 <p class="card-text">Prix total : ${totalPrice.toFixed(2)} Cfa</p>
+//                 <i class="material-icons" style="cursor: pointer;" onclick="showProducts('${date}')">visibility</i>
+//             </div>
+//         `;
+//         datesContainer.appendChild(card);
+//     }
+// }
+
+
+// function formatDate(date) {
+//     return format(parseISO(date), 'dd/MM/yyyy');
+// }
+
+// onAuthStateChanged(auth, (user) => {
+//     if (user) {
+//         userId = user.uid;
+
+//         // Fetch dates and totals after user is authenticated
+//         fetchDatesAndTotals(userId);
+//     } else {
+//         console.log('Utilisateur non authentifié');
+//     }
+// });
+// // Définir les fonctions globalement
+// window.showProducts = function(date) {
+//     $('#productsModal').modal('show');
+//     fetchProducts(userId, date);
+// };
+
+// window.fetchProducts = function(userId, date) {
+//     const productsRef = ref(db, `products/${userId}/${date}`);
+//     onValue(productsRef, (snapshot) => {
+//         const productsTableBody = document.getElementById('productsTableBody');
+//         productsTableBody.innerHTML = '';
+
+//         snapshot.forEach((childSnapshot) => {
+//             const product = childSnapshot.val();
+//             const row = document.createElement('tr');
+//             const statusClass = product.status === 'acheté' ? 'product-achete' : 'product-no-achete';
+
+//             const checkIconStyle = product.status === 'acheté' ? 'display: none;' : '';
+
+//             row.innerHTML = `
+//                 <td>${product.name}</td>
+//                 <td>${product.price}</td>
+//                 <td>${product.quantity}</td>
+//                 <td>
+//                     <i class="material-icons" style="cursor: pointer; ${checkIconStyle}" onclick="checkProduct('${childSnapshot.key}')">check</i>
+//                     <i class="material-icons" style="cursor: pointer;" onclick="editProduct('${childSnapshot.key}')">edit</i>
+//                     <i class="material-icons" style="cursor: pointer;" onclick="deleteProduct('${userId}', '${date}', '${childSnapshot.key}')">delete</i>
+//                 </td>
+//             `;
+//             productsTableBody.appendChild(row);
+//         });
+//     });
+// };
+
+
+// Fonction pour obtenir la date actuelle au format 'YYYY-MM-DD'
+// Fonction pour obtenir la date actuelle au format 'YYYY-MM-DD'
+function getCurrentDate() {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, '0');
+    const day = String(today.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+}
+
+// Récupérer les produits pour la date actuelle
+function fetchProductsForToday(userId) {
+    const currentDate = getCurrentDate();
+    const productsRef = ref(db, `products/${userId}/${currentDate}`);
+    
+    onValue(productsRef, (snapshot) => {
+        const productsContainer = document.getElementById('productsContainer');
+        productsContainer.innerHTML = ''; // Réinitialiser le conteneur des produits
+
+        if (snapshot.exists()) {
+            snapshot.forEach((productSnapshot) => {
+                const product = productSnapshot.val();
+                const totalPrice = parseFloat(product.price) * parseInt(product.quantity, 10);
+                const card = document.createElement('div');
+                const productStatusClass = product.status === 'acheté' ? 'product-acheté' : 'product-not-acheté';
+                const actionsVisibility = product.status === 'acheté' ? 'display: none;' : '';
+                card.className = `col-md-4 col-sm-6 col-xs-12 mb-4 ${productStatusClass}`; // Ajouter la classe spécifique au statut du produit
+                card.innerHTML = `
+                    <div class="card card-product">
+                        <div class="card-body">
+                            <h5 class="card-title">${product.name}</h5>
+                            <p class="card-text">Prix : ${product.price} Cfa</p>
+                            <p class="card-text">Quantité : ${product.quantity}</p>
+                            <p class="card-text prixT">Prix Total : ${totalPrice} Cfa</p>
+                            <div class="card-actions" style="${actionsVisibility}">
+                               <i class="material-icons" style="cursor: pointer;color:#8D2C5A;" onclick="checkProduct('${productSnapshot.key}')">add_task</i>
+                                <i class="material-icons" style="cursor: pointer; color:green;" onclick="editProduct('${productSnapshot.key}')">edit</i>
+                                <i class="material-icons" style="cursor: pointer; color:red;" onclick="deleteProduct('${userId}', '${currentDate}', '${productSnapshot.key}')">delete</i>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                productsContainer.appendChild(card);
+            });
+        } else {
+            const card = document.createElement('div');
+            card.className = 'col-12';
+            card.innerHTML = '<div class="alert alert-info text-center">Aucun produit trouvé pour aujourd\'hui.</div>';
+            productsContainer.appendChild(card);
+        }
+    });
+}
+
+
+// Appeler la fonction pour récupérer les produits du jour lors du chargement de la page
+document.addEventListener('DOMContentLoaded', () => {
+    onAuthStateChanged(auth, (user) => {
+        if (user) {
+            fetchProductsForToday(user.uid);
+        } else {
+            console.log('Utilisateur non authentifié');
+        }
+    });
+});
+
+// Fonction pour marquer un produit comme acheté avec confirmation
+function checkProduct(productId) {
+    // Afficher une boîte de confirmation
+    if (confirm("Êtes-vous sûr de vouloir marquer ce produit comme acheté ?")) {
+        const currentDate = getCurrentDate();
+        const userId = auth.currentUser.uid;
+        const productRef = ref(db, `products/${userId}/${currentDate}/${productId}`);
+
+        update(productRef, { status: 'acheté' }).then(() => {
+            // Optionnel : Recharger les produits après la mise à jour
+            fetchProductsForToday(userId);
+        }).catch((error) => {
+            console.error("Erreur lors de la mise à jour du produit : ", error);
+        });
+    } else {
+        // Action annulée, ne rien faire
+        console.log("Marquage du produit annulé.");
+    }
+}
+
+// Exemple d'utilisation de checkProduct pour tester
+window.checkProduct = checkProduct;
 
 // Ouvrir le modal lorsque le bouton est cliqué
 document.getElementById('liste').addEventListener('click', () => {
@@ -83,92 +268,3 @@ document.getElementById('confirmButton').addEventListener('click', () => {
         alert('Veuillez sélectionner une date.');
     }
 });
-
-function fetchDatesAndTotals(userId) {
-    const productsRef = ref(db, `products/${userId}`);
-    onValue(productsRef, (snapshot) => {
-        const datesMap = {};
-
-        snapshot.forEach((dateSnapshot) => {
-            dateSnapshot.forEach((productSnapshot) => {
-                const product = productSnapshot.val();
-                const date = dateSnapshot.key;
-                const price = parseFloat(product.price) * parseInt(product.quantity, 10);
-
-                if (!datesMap[date]) {
-                    datesMap[date] = 0;
-                }
-                datesMap[date] += price;
-            });
-        });
-
-        displayDateCards(datesMap);
-    });
-}
-
-function displayDateCards(datesMap) {
-    const datesContainer = document.getElementById('datesContainer');
-    datesContainer.innerHTML = '';
-
-    for (const [date, totalPrice] of Object.entries(datesMap)) {
-        const card = document.createElement('div');
-        card.className = 'card mb-3';
-        card.innerHTML = `
-            <div class="card-body">
-                <h5 class="card-title">${formatDate(date)}</h5>
-                <p class="card-text">Prix total : ${totalPrice.toFixed(2)} Cfa</p>
-                <i class="material-icons" style="cursor: pointer;" onclick="showProducts('${date}')">visibility</i>
-            </div>
-        `;
-        datesContainer.appendChild(card);
-    }
-}
-
-
-function formatDate(date) {
-    return format(parseISO(date), 'dd/MM/yyyy');
-}
-
-onAuthStateChanged(auth, (user) => {
-    if (user) {
-        userId = user.uid;
-
-        // Fetch dates and totals after user is authenticated
-        fetchDatesAndTotals(userId);
-    } else {
-        console.log('Utilisateur non authentifié');
-    }
-});
-// Définir les fonctions globalement
-window.showProducts = function(date) {
-    $('#productsModal').modal('show');
-    fetchProducts(userId, date);
-};
-
-window.fetchProducts = function(userId, date) {
-    const productsRef = ref(db, `products/${userId}/${date}`);
-    onValue(productsRef, (snapshot) => {
-        const productsTableBody = document.getElementById('productsTableBody');
-        productsTableBody.innerHTML = '';
-
-        snapshot.forEach((childSnapshot) => {
-            const product = childSnapshot.val();
-            const row = document.createElement('tr');
-            const statusClass = product.status === 'acheté' ? 'product-achete' : 'product-no-achete';
-
-            const checkIconStyle = product.status === 'acheté' ? 'display: none;' : '';
-
-            row.innerHTML = `
-                <td>${product.name}</td>
-                <td>${product.price}</td>
-                <td>${product.quantity}</td>
-                <td>
-                    <i class="material-icons" style="cursor: pointer; ${checkIconStyle}" onclick="checkProduct('${childSnapshot.key}')">check</i>
-                    <i class="material-icons" style="cursor: pointer;" onclick="editProduct('${childSnapshot.key}')">edit</i>
-                    <i class="material-icons" style="cursor: pointer;" onclick="deleteProduct('${userId}', '${date}', '${childSnapshot.key}')">delete</i>
-                </td>
-            `;
-            productsTableBody.appendChild(row);
-        });
-    });
-};
