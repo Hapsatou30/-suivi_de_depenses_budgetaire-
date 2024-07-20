@@ -1,0 +1,164 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+.root{
+    
+    --police-titre: 'Montserrat';
+    --police-texte:'Roboto';
+}
+body{
+    font-family: var(--police-texte);
+    height: 100vh;
+}
+h1,h2,h3,h4,h5{
+   color: #8D2C5A;
+   font-weight: bold;
+    font-family: var(--police-titre);
+}
+.header {
+    background-color: #8D2C5A;
+    
+ }
+ 
+ .logo {
+     max-width: 90px;
+     height: auto;
+ }
+ 
+ .btn-menu .material-icons {
+     border: white;
+     font-size: 30px;
+     cursor: pointer;
+     color: white;
+ }
+ 
+ 
+ .nav-link {
+     text-decoration: none;
+     color: white;
+     font-weight: bold;
+     padding: 5px 10px;
+ }
+ 
+ .nav-link:hover {
+     color: white;
+ }
+ .nav button{
+     width: 200px;
+     display: block;
+      margin: 0 auto;
+      margin-bottom: 10px;
+ }
+ .btn-deconnexion {
+     background-color: transparent;
+     border: 2px solid white;
+     border-radius: 10px;
+     color: white;
+     cursor: pointer;
+ }
+ 
+ .btn-deconnexion:hover {
+     background-color: white;
+     color: #8D2C5A;
+ }
+ .btn-custom {
+    background-color: #8D2C5A; 
+    color: #ffffff;
+    border: none; 
+    border-radius: 10px; 
+    padding: 10px 20px; 
+    font-size: 1rem; 
+    font-weight: bold; 
+    text-transform: uppercase; 
+    cursor: pointer; 
+    display: block;
+    margin: 0 auto;
+}
+
+/* Effet de survol pour le bouton */
+.btn-custom:hover {
+    background-color: #8D2C5A;
+    color: white;
+   
+}
+form{
+    border: 10px solid #8D2C5A;
+    width: 95%;
+    margin-right: auto;
+    margin-left: auto;
+    padding: 10px;
+}
+.form-control{
+    border-bottom: 2px solid #8D2C5A;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    
+}
+.form-control:focus{
+    border: 2px solid #8D2C5A;
+}
+.form-group.success input{
+    border-color: green;
+}
+.form-group.error input{
+    border-color: #ce0033;
+}
+.form-group .error{
+    color: #ce0033;
+    font-size: 10px;
+    height: 13px;
+}
+.img-fluid {
+    max-width: 100%;
+    height: auto;
+}
+.container h4{
+    line-height: 38px;
+}
+.material-icons{
+    font-size: 18px;
+}
+.product-achete {
+    background-color: #d4edda; /* Couleur de fond pour les produits achetés */
+    color: #155724; /* Couleur de texte pour les produits achetés */
+}
+.btn-custom1 {
+    background-color: transparent; 
+    color: #8D2C5A;
+    border: 1px solid #8D2C5A; 
+    border-radius: 10px; 
+    padding: 10px 20px; 
+    font-size: 1rem; 
+    font-weight: bold; 
+    text-transform: uppercase; 
+    cursor: pointer; 
+    display: block;
+    margin: 0 auto;
+}
+
+/* Effet de survol pour le bouton */
+.btn-custom1:hover {
+    background-color: #8D2C5A;
+    color: white;
+   
+}
+
+/* Style de base pour le footer */
+.footer {
+    background-color: #8D2C5A; 
+    color: #fff;
+    text-align: center; 
+    padding: 10px 0; 
+}
+
+/* Style pour le conteneur du footer */
+.footer .container {
+    margin: 0 auto;
+    padding: 0 15px; 
+}
+
+/* Style pour le texte du footer */
+.footer p {
+    margin: 0; 
+    font-size: 0.9rem; 
+}
