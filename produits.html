@@ -33,12 +33,13 @@
         </div>
     </header>
     <div class="container">
-        <h4 class="text-center mt-5">Formulaire pour ajouter des Produits</h4>
+        
         <div class="row" id="formAjout">
             <div class="col-md-6">
                 <img src="/images/produits.jpg" alt="Ajouter un produit" class="img-fluid">
             </div>
             <div class="col-md-6">
+                <h4 class="text-center mt-5">Formulaire pour ajouter des Produits</h4>
                 <form id="productForm">
                     <div class="form-group">
                         <input type="text" class="form-control" id="nom" name="nom" placeholder="Nom">
@@ -59,7 +60,7 @@
 
         <div class="row" id="editProductForm" style="display: none;">
             <div class="col-md-6">
-                <img src="/path/to/your/edit-image.jpg" alt="Modifier le produit" class="img-fluid">
+                <img src="/images/produits.jpg" alt="Modifier le produit" class="img-fluid">
             </div>
             <div class="col-md-6">
                 <h2>Modifier le Produit</h2>
@@ -80,8 +81,10 @@
                         <input type="number" class="form-control" id="editquantite" name="quantite">
                         <div class="error"></div>
                     </div>
-                    <button type="submit" class="btn btn-primary">Modifier le produit</button>
-                    <button type="button" class="btn btn-secondary" onclick="cancelEdit()">Annuler</button>
+                   <div class="bouton">
+                    <button type="submit" class="btn btn-custom">Modifier </button>
+                    <button type="button" class="btn btn-custom1" onclick="cancelEdit()">Retour</button>
+                   </div>
                 </form>
             </div>
         </div>

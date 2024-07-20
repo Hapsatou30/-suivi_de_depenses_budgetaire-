@@ -257,7 +257,12 @@ document.getElementById('editProductForm').addEventListener('submit', (e) => {
             price: prix_unitaire,
             quantity: quantite
         }).then(() => {
-            alert('Produit mis à jour avec succès !');
+            Swal.fire({
+                icon: 'success',
+                title: 'Produit mis à jour avec succès !',
+                showConfirmButton: false,
+                timer: 1500
+            });
             document.getElementById('editProductForm').reset();
             document.getElementById('editProductForm').style.display = 'none';
             fetchProducts(userId, selectedDate);

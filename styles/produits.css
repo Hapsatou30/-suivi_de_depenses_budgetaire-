@@ -162,3 +162,9 @@ form{
     margin: 0; 
     font-size: 0.9rem; 
 }
+.bouton{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+}
