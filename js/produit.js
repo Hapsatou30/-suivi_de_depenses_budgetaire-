@@ -16,6 +16,7 @@ const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 const auth = getAuth(app);
 
+
 let selectedDate = null;
 let userId = null;
 
@@ -31,21 +32,26 @@ document.addEventListener('DOMContentLoaded', () => {
 
             document.getElementById('productForm').addEventListener('submit', (e) => {
                 e.preventDefault();
-
+            
                 if (validationForm()) {
                     const nom = document.getElementById('nom').value;
                     const prix_unitaire = document.getElementById('prix_unitaire').value;
                     const quantite = document.getElementById('quantite').value;
-
+            
                     const productId = Date.now();
                     const productRef = ref(db, `products/${userId}/${selectedDate}/${productId}`);
-
+            
                     set(productRef, {
                         name: nom,
                         price: prix_unitaire,
                         quantity: quantite
                     }).then(() => {
-                        alert('Produit ajouté avec succès !');
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Produit ajouté avec succès !',
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
                         document.getElementById('productForm').reset();
                         reset();
                         fetchProducts(userId, selectedDate);
@@ -146,41 +152,59 @@ function fetchProducts(userId, date) {
             const product = childSnapshot.val();
             const row = document.createElement('tr');
             const statusClass = product.status === 'acheté' ? 'product-achete' : 'product-no-achete';
-
-
+        
             // Déterminer si l'icône de vérification doit être cachée
             const checkIconStyle = product.status === 'acheté' ? 'display: none;' : '';
-
-
+        
+            row.classList.add(statusClass);
+        
             row.innerHTML = `
                 <td>${product.name}</td>
                 <td>${product.price}</td>
                 <td>${product.quantity}</td>
-                <td>
-                     <i class="material-icons" style="cursor: pointer; ${checkIconStyle}" onclick="checkProduct('${childSnapshot.key}')">check</i>
-                    <i class="material-icons" style="cursor: pointer;" onclick="editProduct('${childSnapshot.key}')">edit</i>
-                    <i class="material-icons" style="cursor: pointer;" onclick="deleteProduct('${userId}', '${date}', '${childSnapshot.key}')">delete</i>
+                <td class="d-flex justify-content-between">
+                    <i class="material-icons" style="cursor: pointer; ${checkIconStyle} color:#8D2C5A;" onclick="checkProduct('${childSnapshot.key}')">add_task</i>
+                    <i class="material-icons" style="cursor: pointer; color:green;" onclick="editProduct('${childSnapshot.key}')">edit</i>
+                    <i class="material-icons" style="cursor: pointer; color:red;" onclick="deleteProduct('${userId}', '${date}', '${childSnapshot.key}')">delete</i>
                 </td>
             `;
             productsTableBody.appendChild(row);
         });
+        
     });
 }
 
+
 function deleteProduct(userId, date, productId) {
-    if (confirm('Êtes-vous sûr de vouloir supprimer ce produit ?')) {
-        const productRef = ref(db, `products/${userId}/${date}/${productId}`);
-        
-        remove(productRef)
-            .then(() => {
-                console.log('Produit supprimé avec succès.');
-                fetchProducts(userId, date);
-            })
-            .catch((error) => {
-                console.error('Erreur lors de la suppression du produit : ', error.message);
-            });
-    }
+    Swal.fire({
+        title: "Êtes-vous sûr ?",
+        text: "Vous ne pourrez pas revenir en arrière !",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#8D2C5A",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Oui, supprimez-le !"
+    }).then((result) => {
+        if (result.isConfirmed) {
+            const productRef = ref(db, `products/${userId}/${date}/${productId}`);
+            
+            remove(productRef)
+                .then(() => {
+                    Swal.fire({
+                        icon: 'success',
+                            title: 'Produit supprimé avec succès !',
+                            showConfirmButton: false,
+                            timer: 1500
+                    });
+                    fetchProducts(userId, date);
+                })
+                .catch((error) => {
+                    console.error('Erreur lors de la suppression du produit : ', error.message);
+                });
+        }
+    });
 }
+
 
 window.deleteProduct = deleteProduct;
 
@@ -227,7 +251,12 @@ document.getElementById('editProductForm').addEventListener('submit', (e) => {
             price: prix_unitaire,
             quantity: quantite
         }).then(() => {
-            alert('Produit mis à jour avec succès !');
+            Swal.fire({
+                icon: 'success',
+                title: 'Produit mis à jour avec succès !',
+                showConfirmButton: false,
+                timer: 1500
+            });
             document.getElementById('editProductForm').reset();
             document.getElementById('editProductForm').style.display = 'none';
             fetchProducts(userId, selectedDate);
@@ -303,15 +332,35 @@ function checkProduct(productId) {
             const product = snapshot.val();
             const newStatus = product.status === 'acheté' ? 'non-acheté' : 'acheté';
 
-            // Mettre à jour le statut du produit dans la base de données
-            update(productRef, { status: newStatus })
-                .then(() => {
-                    console.log('Statut du produit mis à jour avec succès.');
-                    fetchProducts(userId, selectedDate); // Réactualiser la liste des produits
-                })
-                .catch((error) => {
-                    console.error('Erreur lors de la mise à jour du produit : ', error.message);
-                });
+            Swal.fire({
+                title: "Êtes-vous sûr ?",
+                text: `Voulez-vous vraiment marquer ce produit comme ${newStatus} ?`,
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Oui, marquez-le !"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Mettre à jour le statut du produit dans la base de données
+                    update(productRef, { status: newStatus })
+                        .then(() => {
+                            console.log('Statut du produit mis à jour avec succès.');
+                            fetchProducts(userId, selectedDate); // Réactualiser la liste des produits
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Produit modifié avec succès !',
+                                showConfirmButton: false,
+                                timer: 1500
+                            });
+                        })
+
+                        .catch((error) => {
+                            console.error('Erreur lors de la mise à jour du produit : ', error.message);
+                        });
+                }
+            });
+
         } else {
             console.error('Produit non trouvé.');
         }
@@ -319,7 +368,9 @@ function checkProduct(productId) {
         console.error('Erreur lors de la récupération des données : ', error.message);
     });
 }
+
 window.checkProduct = checkProduct;
+
 function formatDate(dateStr) {
     const date = parseISO(dateStr);
     const today = new Date();
@@ -327,16 +378,17 @@ function formatDate(dateStr) {
 
     switch (daysDifference) {
         case 0:
-            return "aujourd'hui";
+            return "Aujourd'hui";
         case -1:
-            return "hier";
+            return "Hier";
         case -2:
-            return "avant-hier";
+            return "Avant-hier";
         case 1:
-            return "demain";
+            return "Demain";
         case 2:
-            return "après-demain";
+            return "Après-demain";
         default:
             return format(date, 'dd/MM/yyyy');
     }
 }
+window.formatDate = formatDate;

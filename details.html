@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Produits</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="/styles/details.css">
+
+</head>
+<body>
+    <header class="header">
+        <div class="container-fluid">
+            <div class="row align-items-center">
+                <div class="col-6">
+                    <img src="/images/logo.png" alt="Logo" class="logo">
+                </div>
+                <div class="col-6 text-right">
+                    <button class="btn btn-menu" id="menuToggle">
+                        <span class="material-icons">menu</span>
+                    </button>
+                </div>
+                
+            </div>
+            <div id="mobileMenu" style="display: none;">
+                <nav class="nav flex-column text-center">
+                    <a href="accueil.html" class="nav-link">Accueil</a>
+                    <a href="ajouter_produit.html" class="nav-link">Ajouter un produit</a>
+                    <button class="btn btn-deconnexion mt-2" id="deconnexion">Déconnexion</button>
+                </nav>
+            </div>
+        </div>
+    </header>
+    
+    <div class="container mt-5">
+        <div class="btn-group" role="group" aria-label="Filtrage des produits">
+            <button type="button" class="btn" id="all" onclick="filterProducts('all')">Tous</button>
+            <button type="button" class="btn" id="acheté" onclick="filterProducts('acheté')">Achetés</button>
+            <button type="button" class="btn" id="non-acheté" onclick="filterProducts('non-acheté')">Non-Achetés</button>
+        </div>
+        <h4 class="mt-5">Produits pour la date : <span id="dateTitle"></span></h4>
+        <div class="row" id="productsContainer"></div>
+    </div>
+    <button type="button" class="btn btn-custom1 mb-5" onclick="window.location.href='accueil.html';">Retour à l'accueil</button>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 ShopSmart. Tous droits réservés.</p>
+        </div>
+    </footer>
+    <!-- Scripts -->
+    <script>document.getElementById('menuToggle').addEventListener('click', function() {
+        var mobileMenu = document.getElementById('mobileMenu');
+        if (mobileMenu.style.display === 'none' || mobileMenu.style.display === '') {
+            mobileMenu.style.display = 'block';
+        } else {
+            mobileMenu.style.display = 'none';
+        }
+    })</script>
+    <script type="module" src="/js/deconnexion.js"></script>
+    <script type="module" src="/js/details.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+</body>
+</html>

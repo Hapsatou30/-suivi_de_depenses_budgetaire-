@@ -1,0 +1,233 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+.root{
+    
+    --police-titre: 'Montserrat';
+    --police-texte:'Roboto';
+}
+body{
+    font-family: var(--police-texte);
+    height: 100vh;
+}
+h1,h2,h3{
+   color: #8D2C5A;
+   font-weight: bold;
+    font-family: var(--police-titre);
+}
+.header {
+   background-color: #8D2C5A;
+   
+}
+
+.logo {
+    max-width: 90px;
+    height: auto;
+}
+
+.btn-menu .material-icons {
+    border: white;
+    font-size: 30px;
+    cursor: pointer;
+    color: white;
+}
+
+
+.nav-link {
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    padding: 5px 10px;
+}
+
+.nav-link:hover {
+    color: white;
+}
+.nav button{
+    width: 200px;
+    display: block;
+     margin: 0 auto;
+     margin-bottom: 10px;
+}
+.btn-deconnexion {
+    background-color: transparent;
+    border: 2px solid white;
+    border-radius: 10px;
+    color: white;
+    cursor: pointer;
+}
+
+.btn-deconnexion:hover {
+    background-color: white;
+    color: #8D2C5A;
+}
+.banner-content {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 300px;
+    text-align: center;
+    background: url('/images/banner.jpg') no-repeat center center;
+    background-size: cover; 
+}
+
+.banner-content::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(141, 44, 90, 0.60); 
+    z-index: 1; 
+}
+
+.banner-content h1,
+.banner-content p {
+    position: relative; 
+    color: white;
+    z-index: 2; 
+}
+
+.banner-content h1 {
+    font-size: 24px;
+    margin: 0;
+    width: 95%;
+    line-height: 38px;
+}
+
+.banner-content p {
+    font-size: 18px; 
+    margin-top: 0.5rem;
+}
+.card-product {
+    border: 1px solid #8D2C5A;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    overflow: hidden;
+    height: 190px;
+}
+
+.card-product:hover {
+    transform: scale(1.05);
+}
+
+.card-product .card-title {
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: #8D2C5A;
+    font-weight: bold;
+}
+.prixT {
+    color: #8D2C5A;
+    font-weight: bold;
+}
+
+.card-product .card-text {
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.card-product .card-actions {
+    display: flex;
+    justify-content: space-between;
+}
+
+.product-acheté .card-product {
+    background-color: #d4edda; 
+    border-color: #c3e6cb;
+}
+
+.product-not-acheté .card-product {
+   border-color: #8D2C5A;
+}
+
+/* Conteneur de la carte */
+.date-card {
+    background-color: #ffffff; 
+    border-radius: 8px; 
+    padding: 20px; 
+    margin: 10px;
+    text-align: center; 
+    border-color: #8D2C5A;
+    border: 1px solid #8D2C5A;
+   }
+
+/* Titre de la carte */
+.date-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px; 
+}
+
+/* Icône de visibilité */
+.material-icons {
+    font-size: 24px; 
+    margin-top: 10px; 
+    cursor: pointer; 
+}
+.btn-custom {
+    background-color: #8D2C5A; 
+    color: #ffffff;
+    border: none; 
+    border-radius: 10px; 
+    padding: 10px 20px; 
+    font-size: 1rem; 
+    font-weight: bold; 
+    text-transform: uppercase; 
+    cursor: pointer; 
+    display: block;
+    margin: 0 auto;
+}
+
+/* Effet de survol pour le bouton */
+.btn-custom:hover {
+    background-color: #8D2C5A;
+    color: white;
+   
+}
+
+/* Style de base pour le footer */
+.footer {
+    background-color: #8D2C5A; 
+    color: #fff;
+    text-align: center; 
+    padding: 10px 0; 
+}
+
+/* Style pour le conteneur du footer */
+.footer .container {
+    margin: 0 auto;
+    padding: 0 15px; 
+}
+
+/* Style pour le texte du footer */
+.footer p {
+    margin: 0; 
+    font-size: 0.9rem; 
+}
+.modal-title{
+    color: #8D2C5A;
+    font-weight: bold;
+}
+.modal-body{
+    display: block;
+    margin: 0 auto;
+}
+.modal-footer{
+    display: flex;
+    align-items: center;
+    justify-content:center;
+}
+.btn-danger{
+    border: none; 
+    border-radius: 10px; 
+    padding: 10px 20px; 
+    font-size: 1rem; 
+    font-weight: bold; 
+    text-transform: uppercase; 
+    cursor: pointer; 
+    display: block;
+    margin: 0 auto;
+}
