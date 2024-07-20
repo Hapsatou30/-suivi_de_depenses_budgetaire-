@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,35 +10,30 @@
 <body>
     <div class="container mt-5">
         <div class="row justify-content-center">
-            <div class="col-md-6">
-                <div class="card">
-                    <div class="card-header bg-primary text-white text-center">
-                        <h4>Connexion</h4>
+            <div class="col-12 col-md-6 ">
+                <img src="/images/logo1.png" alt="Inscription Image" class="registration-image">
+            </div>
+            <div class="col-12 col-md-6 ">
+                <h2 class="text-center  mb-4">Connexion</h2>
+                <form id="Form" class="registration-form">
+                    <div class="form-group">
+                        <input type="email" class="form-control" id="email" placeholder="Votre email">
+                        <div class="error"></div>
                     </div>
-                    <div class="card-body">
-                        <form id="Form">
-                            <div class="form-group">
-                                <label for="email">Email</label>
-                                <input type="email" class="form-control" id="email" placeholder="Entrez votre email" >
-                                <div class="error"></div>
-                            </div>
-                            <div class="form-group">
-                                <label for="mot_de_passe">Mot de passe</label>
-                                <input type="password" class="form-control" id="mot_de_passe" placeholder="Entrez votre mot de passe" >
-                                <div class="error"></div>
-                            </div>
-                            <button type="submit" class="btn btn-primary btn-block">Connexion</button>
-                        </form>
-                        <div id="msg"></div>
+                    <div class="form-group">
+                        <input type="password" class="form-control" id="mot_de_passe" placeholder="Entrez votre mot de passe">
+                        <div class="error"></div>
                     </div>
-                    <div class="card-footer text-center">
-                        <small>Déjà inscrit ? <a href="inscription.html">S'incrire</a></small>
-                    </div>
+                    <button type="submit" class="btn btn-block custom-btn">Connexion</button> <br>
+                </form>
+                <div id="msg"></div>
+                <div class="text">
+                    <small> <a href="inscription.html">S'inscrire</a></small>
                 </div>
             </div>
         </div>
     </div>
 
-     <script type="module" src="/js/connexion.js"></script>
+    <script type="module" src="/js/inscription.js"></script>
 </body>
 </html>

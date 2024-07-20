@@ -1,3 +1,58 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+.root{
+    
+    --police-titre: 'Montserrat';
+    --police-texte:'Roboto';
+}
+body{
+    font-family: var(--police-texte);
+    height: 100vh;
+}
+h1,h2{
+   color: #8D2C5A;
+   font-weight: bold;
+    font-family: var(--police-titre);
+}
+.registration-image {
+    width: 60%;
+    height: 90%;
+    display: block;
+     margin: 0 auto;
+}
+.registration-form{
+    width: 90%;
+    margin-right: auto;
+    margin-left: auto;
+}
+.form-control{
+    border-bottom: 2px solid #8D2C5A;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    
+}
+.custom-btn {
+    background-color: #8D2C5A;
+    border-radius: 10px;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.custom-btn:hover {
+    background-color: transparent;
+    border: 2px solid #8D2C5A;
+    color: #8D2C5A;
+}
+
+small a{
+    color: #8D2C5A;
+    margin-left: 5%;
+}
+small a:hover{
+    color: #8D2C5A;
+}
 .form-group.success input{
     border-color: green;
 }

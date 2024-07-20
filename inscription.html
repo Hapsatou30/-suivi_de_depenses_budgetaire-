@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,45 +10,38 @@
 <body>
     <div class="container mt-5">
         <div class="row justify-content-center">
-            <div class="col-md-6">
-                <div class="card">
-                    <div class="card-header bg-primary text-white text-center">
-                        <h4>Inscription</h4>
+            <div class="col-12 col-md-6 ">
+                <img src="/images/logo1.png" alt="Inscription Image" class="registration-image">
+            </div>
+            <div class="col-12 col-md-6 ">
+                <h2 class="text-center  mb-4">Inscription</h2>
+                <form id="registrationForm" class="registration-form">
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="nom" placeholder="Votre nom">
+                        <div class="error"></div>
                     </div>
-                    <div class="card-body">
-                        <form id="registrationForm">
-                            <div class="form-group">
-                                <label for="nom">Nom</label>
-                                <input type="text" class="form-control" id="nom" placeholder="Entrez votre nom" >
-                                <div class="error"></div>
-                            </div>
-                            <div class="form-group">
-                                <label for="prenom">Prénom</label>
-                                <input type="text" class="form-control" id="prenom" placeholder="Entrez votre prénom" >
-                                <div class="error"></div>
-                            </div>
-                            <div class="form-group">
-                                <label for="email">Email</label>
-                                <input type="email" class="form-control" id="email" placeholder="Entrez votre email" >
-                                <div class="error"></div>
-                            </div>
-                            <div class="form-group">
-                                <label for="mot_de_passe">Mot de passe</label>
-                                <input type="password" class="form-control" id="mot_de_passe" placeholder="Entrez votre mot de passe" >
-                                <div class="error"></div>
-                            </div>
-                            <button type="submit" class="btn btn-primary btn-block">S'inscrire</button> <br>
-                        </form>
-                        <div id="msg"></div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="prenom" placeholder="Votre prénom">
+                        <div class="error"></div>
                     </div>
-                    <div class="card-footer text-center">
-                        <small>Déjà inscrit ? <a href="connexion.html">Connexion</a></small>
+                    <div class="form-group">
+                        <input type="email" class="form-control" id="email" placeholder="Votre email">
+                        <div class="error"></div>
                     </div>
+                    <div class="form-group">
+                        <input type="password" class="form-control" id="mot_de_passe" placeholder="Entrez votre mot de passe">
+                        <div class="error"></div>
+                    </div>
+                    <button type="submit" class="btn btn-block custom-btn">S'inscrire</button> <br>
+                </form>
+                <div id="msg"></div>
+                <div class="text">
+                    <small> <a href="connexion.html">Connexion</a></small>
                 </div>
             </div>
         </div>
     </div>
 
-     <script type="module" src="/js/inscription.js"></script>
+    <script type="module" src="/js/inscription.js"></script>
 </body>
 </html>
