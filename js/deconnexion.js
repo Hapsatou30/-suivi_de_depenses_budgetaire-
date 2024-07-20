@@ -20,14 +20,8 @@ const deconnexion = document.getElementById('deconnexion');
 const UserCreds = JSON.parse(sessionStorage.getItem('user-creds'));
 const UserInfos = JSON.parse(sessionStorage.getItem('user-infos'));
 
-document.getElementById('menuToggle').addEventListener('click', function() {
-    var mobileMenu = document.getElementById('mobileMenu');
-    if (mobileMenu.style.display === 'none' || mobileMenu.style.display === '') {
-        mobileMenu.style.display = 'block';
-    } else {
-        mobileMenu.style.display = 'none';
-    }
-})
+
+
 let userId = null; // Déclarez userId ici
 
 const Deconnexion = () => {

@@ -15,14 +15,8 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 const auth = getAuth(app);
-document.getElementById('menuToggle').addEventListener('click', function() {
-    var mobileMenu = document.getElementById('mobileMenu');
-    if (mobileMenu.style.display === 'none' || mobileMenu.style.display === '') {
-        mobileMenu.style.display = 'block';
-    } else {
-        mobileMenu.style.display = 'none';
-    }
-})
+
+
 let selectedDate = null;
 let userId = null;
 
