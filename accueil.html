@@ -48,7 +48,7 @@
     </div>
 
     <!-- Conteneur pour les dates -->
-    <div class="container mt-5">
+    <div class="container ">
         <h2 class="text-center mb-5">Les Courses à faire</h2>
         <div class="col-md-6">
             <input type="text" class="form-control" id="date" placeholder="Choisissez une date">
@@ -66,7 +66,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="calendarModalLabel">Sélectionnez une Date</h5>
+                <h5 class="modal-title text-center" id="calendarModalLabel">Veuillez sélectionner une Date</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -75,8 +75,8 @@
                 <div id="calendarContainer"></div> <!-- Conteneur pour Flatpickr -->
             </div>
             <div class="modal-footer">
-                <button type="button" id="cancelButton" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
-                <button type="button" id="confirmButton" class="btn btn-primary">Confirmer</button>
+                <button type="button" id="cancelButton" class="btn btn-danger" data-dismiss="modal">Annuler</button>
+                <button type="button" id="confirmButton" class="btn btn-custom">Confirmer</button>
             </div>
         </div>
     </div>
@@ -94,6 +94,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script> <!-- Flatpickr JS -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script type="module" src="/js/deconnexion.js"></script>
     <script type="module" src="/js/produit.js"></script>
 

@@ -167,20 +167,49 @@ function fetchProducts(userId, date) {
     });
 }
 
-function deleteProduct(userId, date, productId) {
-    if (confirm('Êtes-vous sûr de vouloir supprimer ce produit ?')) {
-        const productRef = ref(db, `products/${userId}/${date}/${productId}`);
+// function deleteProduct(userId, date, productId) {
+//     if (confirm('Êtes-vous sûr de vouloir supprimer ce produit ?')) {
+//         const productRef = ref(db, `products/${userId}/${date}/${productId}`);
         
-        remove(productRef)
-            .then(() => {
-                console.log('Produit supprimé avec succès.');
-                fetchProducts(userId, date);
-            })
-            .catch((error) => {
-                console.error('Erreur lors de la suppression du produit : ', error.message);
-            });
-    }
+//         remove(productRef)
+//             .then(() => {
+//                 console.log('Produit supprimé avec succès.');
+//                 fetchProducts(userId, date);
+//             })
+//             .catch((error) => {
+//                 console.error('Erreur lors de la suppression du produit : ', error.message);
+//             });
+//     }
+// }
+function deleteProduct(userId, date, productId) {
+    Swal.fire({
+        title: "Êtes-vous sûr ?",
+        text: "Vous ne pourrez pas revenir en arrière !",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Oui, supprimez-le !"
+    }).then((result) => {
+        if (result.isConfirmed) {
+            const productRef = ref(db, `products/${userId}/${date}/${productId}`);
+            
+            remove(productRef)
+                .then(() => {
+                    Swal.fire({
+                        title: "Supprimé !",
+                        text: "Votre produit a été supprimé.",
+                        icon: "success"
+                    });
+                    fetchProducts(userId, date);
+                })
+                .catch((error) => {
+                    console.error('Erreur lors de la suppression du produit : ', error.message);
+                });
+        }
+    });
 }
+
 
 window.deleteProduct = deleteProduct;
 

@@ -119,25 +119,41 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
-// Fonction pour marquer un produit comme acheté avec confirmation
 function checkProduct(productId) {
-    // Afficher une boîte de confirmation
-    if (confirm("Êtes-vous sûr de vouloir marquer ce produit comme acheté ?")) {
-        const currentDate = getCurrentDate();
-        const userId = auth.currentUser.uid;
-        const productRef = ref(db, `products/${userId}/${currentDate}/${productId}`);
-
-        update(productRef, { status: 'acheté' }).then(() => {
-            // Optionnel : Recharger les produits après la mise à jour
-            fetchProductsForToday(userId);
-        }).catch((error) => {
-            console.error("Erreur lors de la mise à jour du produit : ", error);
-        });
-    } else {
-        // Action annulée, ne rien faire
-        console.log("Marquage du produit annulé.");
-    }
+    Swal.fire({
+        title: "Êtes-vous sûr ?",
+        text: "Voulez-vous vraiment marquer ce produit comme acheté ?",
+        icon: "info",
+        showCancelButton: true,
+        confirmButtonColor: "#8D2C5A",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Oui, marquez-le !"
+    }).then((result) => {
+        if (result.isConfirmed) {
+            const currentDate = getCurrentDate();
+            const userId = auth.currentUser.uid;
+            const productRef = ref(db, `products/${userId}/${currentDate}/${productId}`);
+            
+            update(productRef, { status: 'acheté' })
+                .then(() => {
+                    Swal.fire({
+                        title: "Marqué !",
+                        text: "Le produit a été marqué comme acheté.",
+                        icon: "success"
+                    });
+                    // Optionnel : Recharger les produits après la mise à jour
+                    fetchProductsForToday(userId);
+                })
+                .catch((error) => {
+                    console.error("Erreur lors de la mise à jour du produit : ", error);
+                });
+        } else {
+            // Action annulée, ne rien faire
+            console.log("Marquage du produit annulé.");
+        }
+    });
 }
+
 
 // Exemple d'utilisation de checkProduct pour tester
 window.checkProduct = checkProduct;
@@ -166,9 +182,15 @@ document.getElementById('confirmButton').addEventListener('click', () => {
         // Rediriger vers la page d'ajout de produit avec la date sélectionnée en paramètre
         window.location.href = `produits.html?date=${encodeURIComponent(window.selectedDate)}`;
     } else {
-        alert('Veuillez sélectionner une date.');
+        // Utiliser SweetAlert2 pour afficher une alerte
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Veuillez sélectionner une date.'
+        });
     }
 });
+
 
 
 function fetchDatesWithProducts(userId) {
