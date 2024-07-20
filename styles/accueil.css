@@ -1,0 +1,62 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+.root{
+    
+    --police-titre: 'Montserrat';
+    --police-texte:'Roboto';
+}
+body{
+    font-family: var(--police-texte);
+    height: 100vh;
+}
+h1,h2{
+   color: #8D2C5A;
+   font-weight: bold;
+    font-family: var(--police-titre);
+}
+.header {
+   background-color: #8D2C5A;
+   
+}
+
+.logo {
+    max-width: 90px;
+    height: auto;
+}
+
+.btn-menu .material-icons {
+    border: white;
+    font-size: 30px;
+    cursor: pointer;
+    color: white;
+}
+
+
+.nav-link {
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    padding: 5px 10px;
+}
+
+.nav-link:hover {
+    color: white;
+}
+.nav button{
+    width: 200px;
+    display: block;
+     margin: 0 auto;
+     margin-bottom: 10px;
+}
+.btn-deconnexion {
+    background-color: transparent;
+    border: 2px solid white;
+    border-radius: 10px;
+    color: white;
+    cursor: pointer;
+}
+
+.btn-deconnexion:hover {
+    background-color: white;
+    color: #8D2C5A;
+}
