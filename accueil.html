@@ -35,26 +35,31 @@
     <section class="banner">
         <section class="banner-content">
             <h1>Bienvenue sur ShopSmart</h1>
-            <p>Gérez  vos dépenses de manière efficace</p>
+            <p>Gérez vos dépenses de manière efficace</p>
         </section>        
     </section>
     
-    <!-- <h1 id="msgHead">HELLO</h1> -->
     <h3 id="greetHead" class="text-center mt-5"></h3>
+    
+    <!-- Conteneur pour les produits du jour -->
     <div class="container mt-5">
-        <h4 class="mb-2"> Voici la liste de vos courses du jour</h4>
+        <h4 class="mb-2">Voici la liste de vos courses du jour</h4>
         <div class="row" id="productsContainer"></div>
     </div>
 
+    <!-- Conteneur pour les dates -->
     <div class="container mt-5">
-            <div class="col-md-6">
-                        <input type="text" class="form-control" id="date" placeholder="Choisissez une date">
-                    </div>
-            </div>
-        
+        <h2 class="text-center mb-5">Les Courses à faire</h2>
+        <div class="col-md-6">
+            <input type="text" class="form-control" id="date" placeholder="Choisissez une date">
+        </div>
+        <div id="datesContainer" class="row mt-4"></div>
+    </div>
+    
+    <!-- Bouton pour ajouter une liste -->
+    <button type="button" id="liste" class="btn btn-custom  mb-4">Ajouter une liste</button>
 
-    <div id="datesContainer" class="container mt-4"></div>
-    <button type="button" id="liste" class="btn btn-primary btn-block">Ajouter une liste</button>
+   
 
  <!-- Modal -->
 <div class="modal fade" id="calendarModal" tabindex="-1" role="dialog" aria-labelledby="calendarModalLabel" aria-hidden="true">
@@ -77,35 +82,12 @@
     </div>
 </div>
 
-<!-- Modal pour afficher les produits -->
-<div class="modal fade" id="productsModal" tabindex="-1" aria-labelledby="productsModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="productsModalLabel">Liste des Produits</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Nom</th>
-                            <th>Prix</th>
-                            <th>Quantité</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody id="productsTableBody">
-                        <!-- Les lignes de produit seront ajoutées ici -->
-                    </tbody>
-                </table>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
-            </div>
-        </div>
+<footer class="footer">
+    <div class="container">
+        <p>&copy; 2024 ShopSmart. Tous droits réservés.</p>
     </div>
-</div>
+</footer>
+
 
     <!-- Scripts -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

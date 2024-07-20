@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Produits</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="/styles/accueil.css">
+</head>
+<body>
+    <header class="header">
+        <!-- Ajoutez votre en-tête ici -->
+    </header>
+    <div class="container mt-5">
+        <h4 class="mb-2">Produits pour la date : <span id="dateTitle"></span></h4>
+        <div class="row" id="productsContainer"></div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-app.js";
+        import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-database.js";
+        import { getAuth } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-auth.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyA0XjxPY09jH-LPQu4SWtFmZZpFgbFvp4M",
+            authDomain: "suivi-de-depenses-budgetaire.firebaseapp.com",
+            projectId: "suivi-de-depenses-budgetaire",
+            storageBucket: "suivi-de-depenses-budgetaire.appspot.com",
+            messagingSenderId: "526282351821",
+            appId: "1:526282351821:web:ba4afae87d8c40bb20b584"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+        const auth = getAuth(app);
+
+        function getQueryParam(name) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(name);
+        }
+
+        const userId = getQueryParam('userId');
+        const date = getQueryParam('date');
+
+        document.getElementById('dateTitle').innerText = date;
+
+        function fetchProductsForDate(userId, date) {
+            const productsRef = ref(db, `products/${userId}/${date}`);
+            
+            onValue(productsRef, (snapshot) => {
+                const productsContainer = document.getElementById('productsContainer');
+                productsContainer.innerHTML = ''; // Réinitialiser le conteneur des produits
+
+                if (snapshot.exists()) {
+                    snapshot.forEach((productSnapshot) => {
+                        const product = productSnapshot.val();
+                        const totalPrice = parseFloat(product.price) * parseInt(product.quantity, 10);
+                        const card = document.createElement('div');
+                        const productStatusClass = product.status === 'acheté' ? 'product-acheté' : 'product-not-acheté';
+                        const actionsVisibility = product.status === 'acheté' ? 'display: none;' : '';
+                        card.className = `col-md-4 col-sm-6 col-xs-12 mb-4 ${productStatusClass}`;
+                        card.innerHTML = `
+                            <div class="card card-product">
+                                <div class="card-body">
+                                    <h5 class="card-title">${product.name}</h5>
+                                    <p class="card-text">Prix : ${product.price} Cfa</p>
+                                    <p class="card-text">Quantité : ${product.quantity}</p>
+                                    <p class="card-text prixT">Prix Total : ${totalPrice} Cfa</p>
+                                    <div class="card-actions" style="${actionsVisibility}">
+                                        <i class="material-icons" style="cursor: pointer;color:#8D2C5A;" onclick="checkProduct('${productSnapshot.key}')">add_task</i>
+                                        <i class="material-icons" style="cursor: pointer; color:green;" onclick="editProduct('${productSnapshot.key}')">edit</i>
+                                        <i class="material-icons" style="cursor: pointer; color:red;" onclick="deleteProduct('${userId}', '${date}', '${productSnapshot.key}')">delete</i>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                        productsContainer.appendChild(card);
+                    });
+                } else {
+                    const card = document.createElement('div');
+                    card.className = 'col-12';
+                    card.innerHTML = '<div class="alert alert-info text-center">Aucun produit trouvé pour cette date.</div>';
+                    productsContainer.appendChild(card);
+                }
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            fetchProductsForDate(userId, date);
+        });
+
+        function checkProduct(productId) {
+            // Afficher une boîte de confirmation
+            if (confirm("Êtes-vous sûr de vouloir marquer ce produit comme acheté ?")) {
+                const productRef = ref(db, `products/${userId}/${date}/${productId}`);
+
+                update(productRef, { status: 'acheté' }).then(() => {
+                    // Recharger les produits après la mise à jour
+                    fetchProductsForDate(userId, date);
+                }).catch((error) => {
+                    console.error("Erreur lors de la mise à jour du produit : ", error);
+                });
+            } else {
+                // Action annulée, ne rien faire
+                console.log("Marquage du produit annulé.");
+            }
+        }
+
+        window.checkProduct = checkProduct;
+    </script>
+</body>
+</html>

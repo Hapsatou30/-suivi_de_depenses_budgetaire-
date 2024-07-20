@@ -1,7 +1,7 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-app.js";
 import { getDatabase, ref, onValue, query, orderByChild, equalTo, update } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-database.js";
 import { getAuth, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-auth.js";
-import { format, parseISO } from 'https://cdn.jsdelivr.net/npm/date-fns@2.23.0/esm/index.js';
+import { format, parseISO,differenceInCalendarDays } from 'https://cdn.jsdelivr.net/npm/date-fns@2.23.0/esm/index.js';
 
 const firebaseConfig = {
   apiKey: "AIzaSyA0XjxPY09jH-LPQu4SWtFmZZpFgbFvp4M",
@@ -56,105 +56,6 @@ window.addEventListener('load', () => {
     }
 });
 
-
-// document.addEventListener('DOMContentLoaded', function() {
-//     flatpickr("#date", {
-//         dateFormat: "Y-m-d",
-//         minDate: "today"
-//     });
-// });
-// function fetchDatesAndTotals(userId) {
-//     const productsRef = ref(db, `products/${userId}`);
-//     onValue(productsRef, (snapshot) => {
-//         const datesMap = {};
-
-//         snapshot.forEach((dateSnapshot) => {
-//             dateSnapshot.forEach((productSnapshot) => {
-//                 const product = productSnapshot.val();
-//                 const date = dateSnapshot.key;
-//                 const price = parseFloat(product.price) * parseInt(product.quantity, 10);
-
-//                 if (!datesMap[date]) {
-//                     datesMap[date] = 0;
-//                 }
-//                 datesMap[date] += price;
-//             });
-//         });
-
-//         displayDateCards(datesMap);
-//     });
-// }
-
-// function displayDateCards(datesMap) {
-//     const datesContainer = document.getElementById('datesContainer');
-//     datesContainer.innerHTML = '';
-
-//     for (const [date, totalPrice] of Object.entries(datesMap)) {
-//         const card = document.createElement('div');
-//         card.className = 'card mb-3';
-//         card.innerHTML = `
-//             <div class="card-body">
-//                 <h5 class="card-title">${formatDate(date)}</h5>
-//                 <p class="card-text">Prix total : ${totalPrice.toFixed(2)} Cfa</p>
-//                 <i class="material-icons" style="cursor: pointer;" onclick="showProducts('${date}')">visibility</i>
-//             </div>
-//         `;
-//         datesContainer.appendChild(card);
-//     }
-// }
-
-
-// function formatDate(date) {
-//     return format(parseISO(date), 'dd/MM/yyyy');
-// }
-
-// onAuthStateChanged(auth, (user) => {
-//     if (user) {
-//         userId = user.uid;
-
-//         // Fetch dates and totals after user is authenticated
-//         fetchDatesAndTotals(userId);
-//     } else {
-//         console.log('Utilisateur non authentifié');
-//     }
-// });
-// // Définir les fonctions globalement
-// window.showProducts = function(date) {
-//     $('#productsModal').modal('show');
-//     fetchProducts(userId, date);
-// };
-
-// window.fetchProducts = function(userId, date) {
-//     const productsRef = ref(db, `products/${userId}/${date}`);
-//     onValue(productsRef, (snapshot) => {
-//         const productsTableBody = document.getElementById('productsTableBody');
-//         productsTableBody.innerHTML = '';
-
-//         snapshot.forEach((childSnapshot) => {
-//             const product = childSnapshot.val();
-//             const row = document.createElement('tr');
-//             const statusClass = product.status === 'acheté' ? 'product-achete' : 'product-no-achete';
-
-//             const checkIconStyle = product.status === 'acheté' ? 'display: none;' : '';
-
-//             row.innerHTML = `
-//                 <td>${product.name}</td>
-//                 <td>${product.price}</td>
-//                 <td>${product.quantity}</td>
-//                 <td>
-//                     <i class="material-icons" style="cursor: pointer; ${checkIconStyle}" onclick="checkProduct('${childSnapshot.key}')">check</i>
-//                     <i class="material-icons" style="cursor: pointer;" onclick="editProduct('${childSnapshot.key}')">edit</i>
-//                     <i class="material-icons" style="cursor: pointer;" onclick="deleteProduct('${userId}', '${date}', '${childSnapshot.key}')">delete</i>
-//                 </td>
-//             `;
-//             productsTableBody.appendChild(row);
-//         });
-//     });
-// };
-
-
-// Fonction pour obtenir la date actuelle au format 'YYYY-MM-DD'
-// Fonction pour obtenir la date actuelle au format 'YYYY-MM-DD'
 function getCurrentDate() {
     const today = new Date();
     const year = today.getFullYear();
@@ -268,3 +169,103 @@ document.getElementById('confirmButton').addEventListener('click', () => {
         alert('Veuillez sélectionner une date.');
     }
 });
+
+
+function fetchDatesWithProducts(userId) {
+    const productsRef = ref(db, `products/${userId}`);
+    
+    onValue(productsRef, (snapshot) => {
+        const datesContainer = document.getElementById('datesContainer');
+        datesContainer.innerHTML = ''; // Réinitialiser le conteneur des dates
+        
+        console.log('Snapshot exists:', snapshot.exists()); // Vérifier l'existence du snapshot
+        
+        if (snapshot.exists()) {
+            const dates = new Map(); // Utiliser un Map pour stocker les dates et les montants totaux
+            snapshot.forEach((dateSnapshot) => {
+                const date = dateSnapshot.key;
+                let totalAmount = 0;
+                
+                console.log('Processing date:', date); // Afficher la date en cours
+                
+                dateSnapshot.forEach((productSnapshot) => {
+                    const product = productSnapshot.val();
+                    console.log('Product:', product); // Vérifier les détails du produit
+                    
+                    totalAmount += parseFloat(product.price) * parseInt(product.quantity, 10);
+                });
+
+                dates.set(date, totalAmount); // Ajouter la date et le montant total au Map
+            });
+
+            // Convertir le Map en tableau et trier les dates
+            const sortedDates = Array.from(dates).sort((a, b) => new Date(b[0]) - new Date(a[0]));
+            console.log('Sorted Dates:', sortedDates); // Vérifier le tableau trié
+            
+            // Créer les éléments HTML pour chaque date
+            sortedDates.forEach(([date, totalAmount]) => {
+                const formattedDate = formatDate(date); // Appliquer la fonction de formatage
+                console.log('Formatted Date:', formattedDate); // Vérifier la date formatée
+                
+                const dateElement = document.createElement('div');
+                dateElement.className = 'col-md-4 col-sm-6 col-xs-12 mb-4 date-item';
+                dateElement.innerHTML = `
+                    <div class="date-card">
+                        <h5 class="date-title" style="color: #8D2C5A;" > Date: ${formattedDate}</h5>
+                        <h5 class="date-title">Total : ${totalAmount.toFixed(2)} Cfa</h5>
+                        <i class="material-icons" style="cursor: pointer; color: #8D2C5A;" onclick="redirectToProductsPage('${userId}', '${date}')">visibility</i>
+                    </div>
+                `;
+                datesContainer.appendChild(dateElement);
+            });
+        } else {
+            const noDatesMessage = document.createElement('div');
+            noDatesMessage.className = 'col-12';
+            noDatesMessage.innerHTML = '<div class="alert alert-info text-center">Aucune date trouvée.</div>';
+            datesContainer.appendChild(noDatesMessage);
+        }
+    });
+}
+
+
+function redirectToProductsPage(userId, date) {
+    window.location.href = `details.html?userId=${encodeURIComponent(userId)}&date=${encodeURIComponent(date)}`;
+}
+
+window.fetchDatesWithProducts = fetchDatesWithProducts;
+window.redirectToProductsPage = redirectToProductsPage;
+
+
+// Appeler la fonction pour récupérer les dates lors du chargement de la page
+document.addEventListener('DOMContentLoaded', () => {
+    onAuthStateChanged(auth, (user) => {
+        if (user) {
+            userId = user.uid; // Affecter l'ID utilisateur
+            fetchProductsForToday(user.uid);
+            fetchDatesWithProducts(user.uid); // Ajouter cette ligne pour récupérer les dates
+        } else {
+            console.log('Utilisateur non authentifié');
+        }
+    });
+});
+function formatDate(dateStr) {
+    const date = parseISO(dateStr);
+    const today = new Date();
+    const daysDifference = differenceInCalendarDays(date, today);
+
+    switch (daysDifference) {
+        case 0:
+            return "Aujourd'hui";
+        case -1:
+            return "Hier";
+        case -2:
+            return "Avant-hier";
+        case 1:
+            return "Demain";
+        case 2:
+            return "Après-demain";
+        default:
+            return format(date, 'dd/MM/yyyy');
+    }
+}
+window.formatDate=formatDate;

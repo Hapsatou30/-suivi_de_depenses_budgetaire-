@@ -328,16 +328,17 @@ function formatDate(dateStr) {
 
     switch (daysDifference) {
         case 0:
-            return "aujourd'hui";
+            return "Aujourd'hui";
         case -1:
-            return "hier";
+            return "Hier";
         case -2:
-            return "avant-hier";
+            return "Avant-hier";
         case 1:
-            return "demain";
+            return "Demain";
         case 2:
-            return "après-demain";
+            return "Après-demain";
         default:
             return format(date, 'dd/MM/yyyy');
     }
 }
+window.formatDate = formatDate;

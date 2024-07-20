@@ -106,6 +106,7 @@ h1,h2,h3{
     border-radius: 8px;
     margin-bottom: 20px;
     overflow: hidden;
+    height: 190px;
 }
 
 .card-product:hover {
@@ -141,4 +142,70 @@ h1,h2,h3{
 .product-not-acheté .card-product {
    border-color: #8D2C5A;
 }
+
+/* Conteneur de la carte */
+.date-card {
+    background-color: #ffffff; 
+    border-radius: 8px; 
+    padding: 20px; 
+    margin: 10px;
+    text-align: center; 
+    border-color: #8D2C5A;
+    border: 1px solid #8D2C5A;
+   }
+
+/* Titre de la carte */
+.date-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px; 
+}
+
+/* Icône de visibilité */
+.material-icons {
+    font-size: 24px; 
+    margin-top: 10px; 
+    cursor: pointer; 
+}
+.btn-custom {
+    background-color: #8D2C5A; 
+    color: #ffffff;
+    border: none; 
+    border-radius: 10px; 
+    padding: 10px 20px; 
+    font-size: 1rem; 
+    font-weight: bold; 
+    text-transform: uppercase; 
+    cursor: pointer; 
+    display: block;
+    margin: 0 auto;
+}
+
+/* Effet de survol pour le bouton */
+.btn-custom:hover {
+    background-color: #8D2C5A;
+    color: white;
+   
+}
+/* Style de base pour le footer */
+.footer {
+    background-color: #8D2C5A; 
+    color: #fff;
+    text-align: center; 
+    padding: 10px 0; 
+}
+
+/* Style pour le conteneur du footer */
+.footer .container {
+    margin: 0 auto;
+    padding: 0 15px; 
+}
+
+/* Style pour le texte du footer */
+.footer p {
+    margin: 0; 
+    font-size: 0.9rem; 
+}
+
+
 
