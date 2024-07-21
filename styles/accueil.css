@@ -14,6 +14,7 @@ h1,h2,h3{
    font-weight: bold;
     font-family: var(--police-titre);
 }
+
 .header {
    background-color: #8D2C5A;
    
@@ -60,6 +61,7 @@ h1,h2,h3{
     background-color: white;
     color: #8D2C5A;
 }
+
 .banner-content {
     position: relative;
     display: flex;
@@ -79,7 +81,7 @@ h1,h2,h3{
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(141, 44, 90, 0.60); 
+    background: rgba(77, 6, 39, 0.65); 
     z-index: 1; 
 }
 
@@ -230,4 +232,9 @@ h1,h2,h3{
     cursor: pointer; 
     display: block;
     margin: 0 auto;
+}
+@media (min-width: 768px) {
+    .banner-content {
+        height: 500px; /* Hauteur pour le desktop */
+    }
 }
