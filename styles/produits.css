@@ -80,7 +80,10 @@ h1,h2,h3,h4,h5{
     color: white;
    
 }
-
+.btn-menu {
+    margin-right: -300%;
+   
+ }
 form{
     border: 10px solid #8D2C5A;
     width: 90%;

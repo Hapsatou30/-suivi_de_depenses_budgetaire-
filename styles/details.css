@@ -31,7 +31,10 @@ h1,h2,h3{
     cursor: pointer;
     color: white;
 }
-
+.btn-menu {
+    margin-right: -300%;
+   
+ }
 
 .nav-link {
     text-decoration: none;
