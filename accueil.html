@@ -19,7 +19,7 @@
                 <div class="col-6 d-none d-md-flex justify-content-center">
                     <nav class="nav">
                         <a href="accueil.html" class="nav-link">Accueil</a>
-                        <a href="#" class="nav-link" id="liste" >Ajouter une liste</a>
+                        <a href="#" class="nav-link" id="liste">Ajouter une liste</a>
                     </nav>
                 </div>
                 <div class="col-3 d-flex justify-content-end">
@@ -29,15 +29,16 @@
                     </button>
                 </div>
             </div>
-            <div id="mobileMenu" style="display: none;">
+            <div id="mobileMenu" class="d-md-none" style="display: none;">
                 <nav class="nav flex-column text-center">
                     <a href="accueil.html" class="nav-link">Accueil</a>
-                    <a href="#" class="nav-link" id="liste" >Ajouter un produit</a>
+                    <a href="#" class="nav-link" data-toggle="modal" data-target="#calendarModal">Ajouter une liste</a>
                     <button class="btn btn-deconnexion mt-2" id="deconnexion">Déconnexion</button>
                 </nav>
             </div>
         </div>
     </header>
+    
     <section class="banner">
         <section class="banner-content">
             <h1>Bienvenue sur ShopSmart</h1>

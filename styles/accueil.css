@@ -233,6 +233,13 @@ h1,h2,h3{
     display: block;
     margin: 0 auto;
 }
+.btn-menu {
+           margin-right: -300%;
+          
+        }
+    
+
+
 @media (min-width: 768px) {
     .banner-content {
         height: 500px; /* Hauteur pour le desktop */
