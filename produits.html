@@ -13,79 +13,83 @@
     <header class="header">
         <div class="container-fluid">
             <div class="row align-items-center">
-                <div class="col-6">
+                <div class="col-3">
                     <img src="/images/logo.png" alt="Logo" class="logo">
                 </div>
-                <div class="col-6 text-right">
+                <div class="col-6 d-none d-md-flex justify-content-center">
+                    <nav class="nav">
+                        <a href="accueil.html" class="nav-link">Accueil</a>
+                        <a href="#" class="nav-link" id="liste" >Ajouter un produit</a>
+                    </nav>
+                </div>
+                <div class="col-3 text-right d-none d-md-block">
+                    <button class="btn btn-deconnexion" id="deconnexion">Déconnexion</button>
+                </div>
+                <div class="col-3 text-right d-md-none">
                     <button class="btn btn-menu" id="menuToggle">
                         <span class="material-icons">menu</span>
                     </button>
                 </div>
-                
             </div>
             <div id="mobileMenu" style="display: none;">
                 <nav class="nav flex-column text-center">
                     <a href="accueil.html" class="nav-link">Accueil</a>
-                    <a href="ajouter_produit.html" class="nav-link">Ajouter un produit</a>
+                    <a href="#" class="nav-link"id="liste" >Ajouter un produit</a>
                     <button class="btn btn-deconnexion mt-2" id="deconnexion">Déconnexion</button>
                 </nav>
             </div>
         </div>
     </header>
+    
     <div class="container">
-        
-        <div class="row" id="formAjout">
+        <div id="formContainer" class="row mt-5">
             <div class="col-md-6">
                 <img src="/images/produits.jpg" alt="Ajouter un produit" class="img-fluid">
             </div>
             <div class="col-md-6">
-                <h4 class="text-center mt-5">Formulaire pour ajouter des Produits</h4>
-                <form id="productForm">
-                    <div class="form-group">
-                        <input type="text" class="form-control" id="nom" name="nom" placeholder="Nom">
-                        <div class="error"></div>
-                    </div>
-                    <div class="form-group">
-                        <input type="number" class="form-control" id="prix_unitaire" name="prix_unitaire" placeholder="Prix unitaire">
-                        <div class="error"></div>
-                    </div>
-                    <div class="form-group">
-                        <input type="number" class="form-control" id="quantite" name="quantite" placeholder="Quantité">
-                        <div class="error"></div>
-                    </div>
-                    <button type="submit" class="btn btn-custom">Ajouter </button>
-                </form>
-            </div>
-        </div>
-
-        <div class="row" id="editProductForm" style="display: none;">
-            <div class="col-md-6">
-                <img src="/images/produits.jpg" alt="Modifier le produit" class="img-fluid">
-            </div>
-            <div class="col-md-6">
-                <h2>Modifier le Produit</h2>
-                <form id="editForm">
-                    <input type="hidden" id="editProductId" name="productId">
-                    <div class="form-group">
-                        <label for="editnom">Nom du produit</label>
-                        <input type="text" class="form-control" id="editnom" name="nom">
-                        <div class="error"></div>
-                    </div>
-                    <div class="form-group">
-                        <label for="editprix_unitaire">Prix</label>
-                        <input type="number" class="form-control" id="editprix_unitaire" name="prix_unitaire">
-                        <div class="error"></div>
-                    </div>
-                    <div class="form-group">
-                        <label for="editquantite">Quantité</label>
-                        <input type="number" class="form-control" id="editquantite" name="quantite">
-                        <div class="error"></div>
-                    </div>
-                   <div class="bouton">
-                    <button type="submit" class="btn btn-custom">Modifier </button>
-                    <button type="button" class="btn btn-custom1" onclick="cancelEdit()">Retour</button>
-                   </div>
-                </form>
+                <div id="formAjout" style="display: block;">
+                    <h4 class="text-center mt-5">Formulaire pour ajouter des Produits</h4>
+                    <form id="productForm">
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="nom" name="nom" placeholder="Nom">
+                            <div class="error"></div>
+                        </div>
+                        <div class="form-group">
+                            <input type="number" class="form-control" id="prix_unitaire" name="prix_unitaire" placeholder="Prix unitaire">
+                            <div class="error"></div>
+                        </div>
+                        <div class="form-group">
+                            <input type="number" class="form-control" id="quantite" name="quantite" placeholder="Quantité">
+                            <div class="error"></div>
+                        </div>
+                        <button type="submit" class="btn btn-custom">Ajouter </button>
+                    </form>
+                </div>
+                <div id="editProductForm" style="display: none;">
+                    <h2>Modifier le Produit</h2>
+                    <form id="editForm">
+                        <input type="hidden" id="editProductId" name="productId">
+                        <div class="form-group">
+                            <label for="editnom">Nom du produit</label>
+                            <input type="text" class="form-control" id="editnom" name="nom">
+                            <div class="error"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="editprix_unitaire">Prix</label>
+                            <input type="number" class="form-control" id="editprix_unitaire" name="prix_unitaire">
+                            <div class="error"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="editquantite">Quantité</label>
+                            <input type="number" class="form-control" id="editquantite" name="quantite">
+                            <div class="error"></div>
+                        </div>
+                        <div class="bouton">
+                            <button type="submit" class="btn btn-custom">Modifier </button>
+                            <button type="button" class="btn btn-custom1" onclick="cancelEdit()">Retour</button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
@@ -113,15 +117,17 @@
             <p>&copy; 2024 ShopSmart. Tous droits réservés.</p>
         </div>
     </footer>
-    <script>document.getElementById('menuToggle').addEventListener('click', function() {
-        var mobileMenu = document.getElementById('mobileMenu');
-        if (mobileMenu.style.display === 'none' || mobileMenu.style.display === '') {
-            mobileMenu.style.display = 'block';
-        } else {
-            mobileMenu.style.display = 'none';
-        }
-    })</script>
-    
+
+    <script>
+        document.getElementById('menuToggle').addEventListener('click', function() {
+            var mobileMenu = document.getElementById('mobileMenu');
+            if (mobileMenu.style.display === 'none' || mobileMenu.style.display === '') {
+                mobileMenu.style.display = 'block';
+            } else {
+                mobileMenu.style.display = 'none';
+            }
+        });
+    </script>
     <script type="module" src="/js/produit.js"></script>
     <script type="module" src="/js/deconnexion.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

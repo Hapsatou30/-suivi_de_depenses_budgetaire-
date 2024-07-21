@@ -8,27 +8,36 @@
     <link rel="stylesheet" href="/styles/inscription.css">
 </head>
 <body>
-    <div class="container mt-5">
-        <div class="row justify-content-center">
-            <div class="col-12 col-md-6 ">
-                <img src="/images/logo1.png" alt="Inscription Image" class="registration-image">
+    <div class="container-fluid">
+        <div class="row no-gutters">
+            <div class="col-md-6 d-none d-md-block image-container">
+                <div class="image-overlay">
+                    <div class="button-container">
+                        <a href="connexion.html" class="btn btn-custom2">Connexion</a>
+                        <a href="inscription.html" class="btn btn-custom1">Inscription</a>
+                    </div>
+                </div>
+                <img src="/images/connexion.jpg" alt="Image de Connexion" class="img-fluid">
             </div>
-            <div class="col-12 col-md-6 ">
-                <h2 class="text-center  mb-4">Connexion</h2>
-                <form id="Form" class="registration-form">
-                    <div class="form-group">
-                        <input type="email" class="form-control" id="email" placeholder="Votre email">
-                        <div class="error"></div>
-                    </div>
-                    <div class="form-group">
-                        <input type="password" class="form-control" id="mot_de_passe" placeholder="Entrez votre mot de passe">
-                        <div class="error"></div>
-                    </div>
-                    <button type="submit" class="btn btn-block custom-btn">Connexion</button> <br>
-                </form>
-                <div id="msg"></div>
-                <div class="text">
-                    <small> <a href="inscription.html">S'inscrire</a></small>
+            <div class="col-12 col-md-6 d-flex align-items-center justify-content-center">
+                <div class="form-container">
+                    <img src="/images/logo1.png" alt="Logo" class="logo img-fluid mb-4">
+                    <h2 class="text-center mb-4">Connexion</h2>
+                    <form id="Form" class="registration-form">
+                        <div class="form-group">
+                            <input type="email" class="form-control" id="email" placeholder="Votre email">
+                            <div class="error"></div>
+                        </div>
+                        <div class="form-group">
+                            <input type="password" class="form-control" id="mot_de_passe" placeholder="Votre mot de passe">
+                            <div class="error"></div>
+                        </div>
+                        <button type="submit" class="btn btn-block custom-btn">Connexion</button>
+                        <div id="msg"></div>
+                        <div class="text text-center mt-3">
+                            <small><a href="inscription.html">S'inscrire</a></small>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>

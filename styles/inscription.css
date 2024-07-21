@@ -21,7 +21,7 @@ h1,h2{
      margin: 0 auto;
 }
 .registration-form{
-    width: 90%;
+    width: 100%;
     margin-right: auto;
     margin-left: auto;
 }
@@ -49,6 +49,7 @@ h1,h2{
 small a{
     color: #8D2C5A;
     margin-left: 5%;
+    font-size: 18px;
 }
 small a:hover{
     color: #8D2C5A;
@@ -74,4 +75,74 @@ table tr.product-no-achete {
     background-color: #f8d7da;
 }
 
+/* Styles pour l'image de gauche */
+.image-container {
+    position: relative;
+}
 
+.image-container .img-fluid {
+    width: 100%;
+    height: 100vh;
+    display: block;
+}
+
+/* Styles pour le fond semi-transparent */
+.image-overlay {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(141, 44, 90, 0.62); /* Couleur #8D2C5A avec 62% d'opacité */
+    display: flex;
+    align-items: center;
+    justify-content: flex-end; /* Aligner les boutons à droite */
+   
+   
+}
+
+/* Styles pour le conteneur des boutons */
+.button-container {
+    display: flex;
+    flex-direction: column; /* Superposer les boutons */
+    align-items: flex-end; 
+    gap: 10px; /* Espace entre les boutons */
+    z-index: 2; /* Assurez-vous que les boutons sont au-dessus de l'overlay */
+}
+
+.btn-custom1 {
+    background-color: transparent; 
+    color: white;
+    padding: 10px 20px; 
+    font-size: 1rem; 
+    font-weight: bold; 
+    text-transform: uppercase; 
+    cursor: pointer; 
+    display: block;
+    margin: 0 auto;
+}
+.btn-custom1:hover {
+    background-color: white; 
+    color: #8D2C5A;
+    border: 1px solid white; 
+    border-top-left-radius: 50px;
+    border-bottom-left-radius: 50px; 
+}
+.btn-custom2 {
+    background-color: white; 
+    color: #8D2C5A;
+    border: 1px solid white; 
+    border-top-left-radius: 50px;
+    border-bottom-left-radius: 50px; 
+    padding: 15px 20px; 
+    font-size: 1rem; 
+    font-weight: bold; 
+    text-transform: uppercase; 
+    cursor: pointer; 
+    display: block;
+}
+.btn-custom2:hover {
+    background-color: white; 
+    color: #8D2C5A;
+    border: 1px solid white; 
+}

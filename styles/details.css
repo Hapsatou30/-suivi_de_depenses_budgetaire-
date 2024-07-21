@@ -7,7 +7,8 @@
 }
 body{
     font-family: var(--police-texte);
-    height: 100vh;
+    height: 100%;
+    margin: 0;
 }
 h1,h2,h3{
    color: #8D2C5A;
@@ -59,6 +60,9 @@ h1,h2,h3{
 .btn-deconnexion:hover {
     background-color: white;
     color: #8D2C5A;
+}
+.main-content {
+    flex: 1;
 }
 h4{
     color: #8D2C5A;

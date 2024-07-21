@@ -13,20 +13,26 @@
     <header class="header">
         <div class="container-fluid">
             <div class="row align-items-center">
-                <div class="col-6">
+                <div class="col-3">
                     <img src="/images/logo.png" alt="Logo" class="logo">
                 </div>
-                <div class="col-6 text-right">
-                    <button class="btn btn-menu" id="menuToggle">
+                <div class="col-6 d-none d-md-flex justify-content-center">
+                    <nav class="nav">
+                        <a href="accueil.html" class="nav-link">Accueil</a>
+                        <a href="#" class="nav-link" id="liste" >Ajouter une liste</a>
+                    </nav>
+                </div>
+                <div class="col-3 d-flex justify-content-end">
+                    <button class="btn btn-deconnexion d-none d-md-block" id="deconnexion">Déconnexion</button>
+                    <button class="btn btn-menu d-md-none ml-auto" id="menuToggle">
                         <span class="material-icons">menu</span>
                     </button>
                 </div>
-                
             </div>
             <div id="mobileMenu" style="display: none;">
                 <nav class="nav flex-column text-center">
                     <a href="accueil.html" class="nav-link">Accueil</a>
-                    <a href="ajouter_produit.html" class="nav-link">Ajouter un produit</a>
+                    <a href="#" class="nav-link" id="liste" >Ajouter un produit</a>
                     <button class="btn btn-deconnexion mt-2" id="deconnexion">Déconnexion</button>
                 </nav>
             </div>
@@ -50,16 +56,10 @@
     <!-- Conteneur pour les dates -->
     <div class="container ">
         <h2 class="text-center mb-5">Les Courses à faire</h2>
-        <div class="col-md-6">
-            <input type="text" class="form-control" id="date" placeholder="Choisissez une date">
-        </div>
+        
         <div id="datesContainer" class="row mt-4"></div>
     </div>
     
-    <!-- Bouton pour ajouter une liste -->
-    <button type="button" id="liste" class="btn btn-custom  mb-4">Ajouter une liste</button>
-
-   
 
  <!-- Modal -->
 <div class="modal fade" id="calendarModal" tabindex="-1" role="dialog" aria-labelledby="calendarModalLabel" aria-hidden="true">

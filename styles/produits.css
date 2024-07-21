@@ -80,12 +80,14 @@ h1,h2,h3,h4,h5{
     color: white;
    
 }
+
 form{
     border: 10px solid #8D2C5A;
-    width: 95%;
+    width: 90%;
     margin-right: auto;
     margin-left: auto;
-    padding: 10px;
+    padding: 10px 20px;
+    
 }
 .form-control{
     border-bottom: 2px solid #8D2C5A;
@@ -167,4 +169,13 @@ form{
     align-items: center;
     justify-content: center;
     
+}
+
+@media (min-width: 768px) {
+    .material-icons{
+        font-size: 24px;
+    }
+    #editProductForm{
+        display: flex;
+    }
 }
