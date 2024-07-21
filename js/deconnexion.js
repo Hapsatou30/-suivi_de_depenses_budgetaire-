@@ -28,7 +28,7 @@ const Deconnexion = () => {
     signOut(auth).then(() => {
         sessionStorage.removeItem("user-creds");
         sessionStorage.removeItem("user-infos");
-        window.location.href = 'connexion.html';
+        window.location.href = 'index.html';
     }).catch((error) => {
         console.error('Erreur lors de la déconnexion : ', error);
     });
@@ -36,7 +36,7 @@ const Deconnexion = () => {
 
 const CheckCred = () => {
     if (!sessionStorage.getItem('user-creds')) {
-        window.location.href = 'connexion.html'; 
+        window.location.href = 'index.html'; 
     } else {
         // document.getElementById('msgHead').innerText = `Utilisateur avec le mail "${UserCreds.email}" est connecté`; 
         document.getElementById('greetHead').innerText = `Bonjour ${UserInfos.Prenom} `; 
