@@ -112,7 +112,7 @@ form.addEventListener('submit', e => {
       reset();
 
       // Redirection vers la page de connexion après l'inscription réussie
-      window.location.href = 'connexion.html';
+      window.location.href = 'index.html';
     })
     .catch((error) => {
       msg.innerHTML = `<div class='alert alert-danger'>${error.message}</div>`;
