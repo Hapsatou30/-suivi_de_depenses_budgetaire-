@@ -17,6 +17,7 @@ const db = getDatabase(app);
 const auth = getAuth(app);
 
 const deconnexion = document.getElementById('deconnexion');
+const mobileDeconnexionButton = document.getElementById('mobileDeconnexion'); // Ajouté pour le bouton mobile
 const UserCreds = JSON.parse(sessionStorage.getItem('user-creds'));
 const UserInfos = JSON.parse(sessionStorage.getItem('user-infos'));
 
@@ -47,6 +48,9 @@ window.addEventListener('load', () => {
     CheckCred();
     if (deconnexion) {
         deconnexion.addEventListener('click', Deconnexion); 
+    }
+    if (mobileDeconnexionButton) {
+        mobileDeconnexionButton.addEventListener('click', Deconnexion);
     }
 });
 
