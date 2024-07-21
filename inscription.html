@@ -8,35 +8,44 @@
     <link rel="stylesheet" href="/styles/inscription.css">
 </head>
 <body>
-    <div class="container mt-5">
-        <div class="row justify-content-center">
-            <div class="col-12 col-md-6 ">
-                <img src="/images/logo1.png" alt="Inscription Image" class="registration-image">
+    <div class="container-fluid">
+        <div class="row no-gutters">
+            <div class="col-md-6 d-none d-md-block image-container">
+                <div class="image-overlay">
+                    <div class="button-container">
+                        <a href="connexion.html" class="btn btn-custom1">Connexion</a>
+                        <a href="inscription.html" class="btn btn-custom2">Inscription</a>
+                    </div>
+                </div>
+                <img src="/images/connexion.jpg" alt="Image d'Inscription" class="img-fluid">
             </div>
-            <div class="col-12 col-md-6 ">
-                <h2 class="text-center  mb-4">Inscription</h2>
-                <form id="registrationForm" class="registration-form">
-                    <div class="form-group">
-                        <input type="text" class="form-control" id="nom" placeholder="Votre nom">
-                        <div class="error"></div>
+            <div class="col-12 col-md-6 d-flex align-items-center justify-content-center">
+                <div class="form-container">
+                    <img src="/images/logo1.png" alt="Logo" class="logo img-fluid mb-4">
+                    <h2 class="text-center mb-4">Inscription</h2>
+                    <form id="registrationForm" class="registration-form">
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="nom" placeholder="Votre nom">
+                            <div class="error"></div>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="prenom" placeholder="Votre prénom">
+                            <div class="error"></div>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" class="form-control" id="email" placeholder="Votre email">
+                            <div class="error"></div>
+                        </div>
+                        <div class="form-group">
+                            <input type="password" class="form-control" id="mot_de_passe" placeholder="Entrez votre mot de passe">
+                            <div class="error"></div>
+                        </div>
+                        <button type="submit" class="btn btn-block custom-btn">S'inscrire</button>
+                    </form>
+                    <div id="msg"></div>
+                    <div class="text text-center mt-3">
+                        <small><a href="connexion.html">Connexion</a></small>
                     </div>
-                    <div class="form-group">
-                        <input type="text" class="form-control" id="prenom" placeholder="Votre prénom">
-                        <div class="error"></div>
-                    </div>
-                    <div class="form-group">
-                        <input type="email" class="form-control" id="email" placeholder="Votre email">
-                        <div class="error"></div>
-                    </div>
-                    <div class="form-group">
-                        <input type="password" class="form-control" id="mot_de_passe" placeholder="Entrez votre mot de passe">
-                        <div class="error"></div>
-                    </div>
-                    <button type="submit" class="btn btn-block custom-btn">S'inscrire</button> <br>
-                </form>
-                <div id="msg"></div>
-                <div class="text">
-                    <small> <a href="connexion.html">Connexion</a></small>
                 </div>
             </div>
         </div>
