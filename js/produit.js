@@ -159,13 +159,13 @@ function fetchProducts(userId, date) {
             row.classList.add(statusClass);
         
             row.innerHTML = `
-                <td>${product.name}</td>
-                <td>${product.price}</td>
-                <td>${product.quantity}</td>
+                <td class="text">${product.name}</td>
+                <td class="text">${product.price}</td>
+                <td class="text">${product.quantity}</td>
                 <td class="d-flex justify-content-between">
                     <i class="material-icons" style="cursor: pointer; ${checkIconStyle} color:#8D2C5A;" onclick="checkProduct('${childSnapshot.key}')">add_task</i>
-                    <i class="material-icons" style="cursor: pointer; color:green;" onclick="editProduct('${childSnapshot.key}')">edit</i>
-                    <i class="material-icons" style="cursor: pointer; color:red;" onclick="deleteProduct('${userId}', '${date}', '${childSnapshot.key}')">delete</i>
+                    <i class="material-icons" style="cursor: pointer;  ${checkIconStyle} color:green;" onclick="editProduct('${childSnapshot.key}')">edit</i>
+                    <i class="material-icons" style="cursor: pointer; ${checkIconStyle} color:red;" onclick="deleteProduct('${userId}', '${date}', '${childSnapshot.key}')">delete</i>
                 </td>
             `;
             productsTableBody.appendChild(row);

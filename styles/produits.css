@@ -181,4 +181,7 @@ form{
     #editProductForm{
         display: flex;
     }
+    .text{
+        font-size: 20px;
+    }
 }
