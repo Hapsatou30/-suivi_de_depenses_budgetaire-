@@ -69,12 +69,25 @@ form.addEventListener('submit', e => {
                         Prenom: snapshot.val().Prenom
                     }));
                     sessionStorage.setItem('user-creds', JSON.stringify(credentials.user));
-                    window.location.href = 'accueil.html';
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Connexion réussie',
+                        timer: 1000,
+                        showConfirmButton: false
+                    }).then(() => {
+                        window.location.href = 'accueil.html';
+                    });
                 }
             });
         })
         .catch((error) => {
-            alert(error.message);
+            Swal.fire({
+                icon: 'error',
+                title: 'Erreur',
+                text: error.message,
+                timer: 1000,
+                showConfirmButton: false
+            });
             console.log(error.code);
             console.log(error.message);
         });

@@ -107,15 +107,28 @@ form.addEventListener('submit', e => {
       set(ref(db, 'UserAuthList/' + credentials.user.uid), {
         Nom: nom.value,
         Prenom: prenom.value
-      })
-      msg.innerHTML = "<div class='alert alert-success'>Utilisateur enregistré avec succès!</div>";
-      reset();
-
-      // Redirection vers la page de connexion après l'inscription réussie
-      window.location.href = 'index.html';
+      }).then(() => {
+        Swal.fire({
+          icon: 'success',
+          title: 'Succès',
+          text: 'Utilisateur enregistré avec succès!',
+          timer: 1000,
+          showConfirmButton: false
+        }).then(() => {
+          reset();
+          // Redirection vers la page de connexion après l'inscription réussie
+          window.location.href = 'index.html';
+        });
+      });
     })
     .catch((error) => {
-      msg.innerHTML = `<div class='alert alert-danger'>${error.message}</div>`;
+      Swal.fire({
+        icon: 'error',
+        title: 'Erreur',
+        text: error.message,
+        timer: 1000,
+        showConfirmButton: false
+      });
       console.log(error.code); // Affiche le code de l'erreur dans la console
       console.log(error.message); // Affiche le message de l'erreur dans la console
     });
